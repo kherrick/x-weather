@@ -3,6 +3,8 @@ web-components-starter
 
 A Web Components starter project
 
+[![web-components-starter-screenshot](./assets/web-components-starter-screenshot.png)](https://kherrick.github.io/web-components-starter/)
+
 ---
 
 ## Get started:
