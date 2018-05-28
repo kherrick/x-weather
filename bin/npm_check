@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+readonly PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.."
+
+cd "${PROJECT_ROOT}" || exit 1
+
+declare NPM_INSTALL_EXIT_CODE
+
+if [[ -f "./package.json" ]] && [[ ! -d "./node_modules" ]]; then
+  npm install
+
+  NPM_INSTALL_EXIT_CODE=$?
+fi
+
+if [[ $NPM_INSTALL_EXIT_CODE -ne 0 ]]; then
+  printf 'Problems encountered installing dependencies.\n'
+
+  exit $NPM_INSTALL_EXIT_CODE
+fi
