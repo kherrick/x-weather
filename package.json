@@ -2,32 +2,36 @@
   "name": "web-components-starter",
   "description": "A Web Components starter project",
   "files": [
-    "public",
+    "dist",
     "src"
   ],
-  "main": "public/web-components-starter-container.js",
+  "main": "dist/web-components-starter-container.js",
   "scripts": {
-    "build": "npm run copy && webpack --config webpack.config.js",
-    "build-watch": "npm run copy && webpack --watch --config webpack.config.js",
+    "build": "npm run check && rimraf ./dist && mkdirp ./dist && rollup -c && npm run copy",
     "check": "bin/npm_check",
-    "copy": "mkdir -p public/ && cp -p src/index.html public/ && cp -p assets/favicon.ico public/",
-    "browser-sync": "browser-sync start --server --serveStatic ./public/ --files ./public/**/*.*",
-    "serve": "npm run browser-sync",
-    "start": "npm run check && ( npm run build-watch & npm run serve )",
+    "copy": "cp -p src/index.html dist/ && cp -p assets/favicon.ico dist/",
+    "browser-sync": "browser-sync start --server --serveStatic ./dist/ --files ./dist/**/*.*",
+    "serve": "rollup -cw & npm run browser-sync",
+    "start": "npm run build && npm run serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "AGPL-3.0",
   "devDependencies": {
     "@webcomponents/webcomponentsjs": "^1.0.19",
     "babel-cli": "^6.26.0",
-    "babel-loader": "^7.1.4",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-custom-element-classes": "^0.1.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.12.5",
     "eslint": "^4.12.0",
+    "rollup": "^0.59.4",
+    "rollup-plugin-babel": "^3.0.4",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-uglify": "^4.0.0",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^4.10.2",
     "webpack-cli": "^3.0.1"
-  }
+  },
+  "dependencies": {}
 }
