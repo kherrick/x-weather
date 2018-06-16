@@ -4,6 +4,10 @@
     "es6": true,
     "browser": true
   },
+  "globals": {
+    "__dirname": true,
+    "process": true
+  },
   "parserOptions": {
     "sourceType": "module"
   },

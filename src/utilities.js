@@ -19,3 +19,18 @@ export const generateUUID = () => {
       : (r & 0x3 | 0x8)).toString(16)
   })
 }
+
+export const loadComponent = ({ customElements, tagName, element }) => {
+  const load = ({ customElements, tagName, element }) => {
+    customElements.define(tagName, element)
+  }
+
+  // Conditional loading of polyfill
+  if (window.customElements) {
+    load({ customElements, tagName, element })
+  } else {
+    document.addEventListener('WebComponentsReady', () => {
+      load({ customElements, tagName, element })
+    })
+  }
+}

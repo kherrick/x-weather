@@ -1,6 +1,7 @@
+import { loadComponent } from '../../../utilities.js'
 import template from './template.js'
 
-export default class extends HTMLElement {
+const WebComponentsStarterBooleanRadio = class extends HTMLElement {
   constructor() {
     super()
     const container = document.createElement('div')
@@ -58,3 +59,9 @@ export default class extends HTMLElement {
     this.value = event.target.value
   }
 }
+
+export default () => loadComponent({
+  customElements: customElements,
+  tagName: 'web-components-starter-boolean-radio',
+  element: WebComponentsStarterBooleanRadio
+})

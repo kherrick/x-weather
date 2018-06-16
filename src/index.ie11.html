@@ -34,9 +34,11 @@
 
 
   <!-- Required for IE11 -->
-  <script src="https://rawgit.com/github/fetch/1.1/fetch.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/babel-polyfill/dist/polyfill.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/systemjs@0.21.4/dist/system-production.js"></script>
+
+  <script defer src="https://rawgit.com/github/fetch/1.1/fetch.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/babel-polyfill/dist/polyfill.min.js"></script>
 
   <div id="ce-es5-shim">
     <script>
@@ -49,15 +51,23 @@
     </script>
 
     <!-- Required, due to a conflict between the polyfills, transpilation, and IE... -->
-    <script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js" charset="utf-8"
-      defer></script>
+    <script
+      defer
+      charset="utf-8"
+      src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js"
+    ></script>
   </div>
 
   <!-- Web component polyfill (only loads what it needs) -->
-  <script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs/webcomponents-lite.js" charset="utf-8" defer></script>
+  <script
+    charset="utf-8"
+    src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs/webcomponents-lite.js"
+  ></script>
 
   <!-- The actual Web component -->
-  <script src="./web-components-starter-container.js" charset="utf-8" defer></script>
+  <script defer>
+    SystemJS.import('./nomodule/web-components-starter-container.js')
+  </script>
 </body>
 
 </html>

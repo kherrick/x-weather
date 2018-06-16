@@ -1,17 +1,19 @@
 {
+  "version": "0.0.2",
   "name": "web-components-starter",
   "description": "A Web Components starter project",
   "files": [
     "dist",
     "src"
   ],
-  "main": "dist/web-components-starter-container.js",
+  "main": "dist/main.js",
   "scripts": {
     "browser-sync": "browser-sync start --server --serveStatic ./dist/ --files ./dist/**/*.*",
     "build-custom-elements-shady-dom": "npm run check && rimraf ./dist && mkdirp ./dist && rollup --config ./config/rollup.config.custom.elements.shady.dom.js && npm run copy-custom-elements-shady-dom",
     "build-ie11": "npm run check && rimraf ./dist && mkdirp ./dist && rollup --config ./config/rollup.config.ie11.js && npm run copy-ie11",
     "build-no-polyfills": "npm run check && rimraf ./dist && mkdirp ./dist && rollup --config ./config/rollup.config.no.polyfills.js && npm run copy-no-polyfills",
     "build": "npm run build-ie11",
+    "bundle-modules": "rimraf ./bundle && mkdirp ./bundle && npm run build-ie11 && ncp ./dist bundle/build-ie11 && rimraf ./dist && npm run build-no-polyfills && ncp ./dist bundle/build-no-polyfills && rimraf ./dist && npm run build-custom-elements-shady-dom && ncp ./dist bundle/build-custom-elements-shady-dom && rimraf ./dist",
     "check": "bin/npm_check",
     "copy-custom-elements-shady-dom": "cp -p src/index.custom.elements.shady.dom.html dist/index.html && cp -p assets/favicon.ico dist/",
     "copy-ie11": "cp -p src/index.ie11.html dist/index.html && cp -p assets/favicon.ico dist/",
@@ -37,6 +39,8 @@
     "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.12.5",
     "eslint": "^4.12.0",
+    "glob": "^7.1.2",
+    "ncp": "^2.0.0",
     "rollup": "^0.59.4",
     "rollup-plugin-babel": "^3.0.4",
     "rollup-plugin-node-resolve": "^3.3.0",

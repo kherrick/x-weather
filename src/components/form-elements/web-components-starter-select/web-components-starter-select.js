@@ -1,7 +1,7 @@
-import { generateUUID } from '../../../utilities.js'
+import { generateUUID, loadComponent } from '../../../utilities.js'
 import template from './template.js'
 
-export default class extends HTMLElement {
+const WebComponentsStarterSelect = class extends HTMLElement {
   constructor() {
     super()
 
@@ -61,3 +61,9 @@ export default class extends HTMLElement {
     this.value = event.target.value
   }
 }
+
+export default () => loadComponent({
+  customElements: customElements,
+  tagName: 'web-components-starter-select',
+  element: WebComponentsStarterSelect
+})
