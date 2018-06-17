@@ -1,4 +1,6 @@
 import { uglify } from 'rollup-plugin-uglify'
+import { terser } from "rollup-plugin-terser";
+
 import babel from 'rollup-plugin-babel'
 import glob from 'glob'
 import nodeResolve from 'rollup-plugin-node-resolve'
@@ -22,9 +24,7 @@ export default [
           [
             'env',
             {
-              'targets': {
-                'ie': 11
-              },
+              'targets': "last 1 major versions",
               'modules': false
             }
           ]
@@ -35,7 +35,7 @@ export default [
           'transform-es2015-classes'
         ]
       }),
-      (process.env.NODE_ENV == 'production' && uglify())
+      (process.env.NODE_ENV == 'production' && terser())
     ],
     experimentalCodeSplitting: true,
     experimentalDynamicImport: true
@@ -56,9 +56,7 @@ export default [
           [
             'env',
             {
-              'targets': {
-                'ie': 11
-              },
+              'targets': "last 1 major versions",
               'modules': 'systemjs'
             }
           ]

@@ -1,4 +1,4 @@
-bundle/
-node_modules
-dist/
-src/index.html
+/bundle/
+/dist/
+/node_modules
+/src/index.html
