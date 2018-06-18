@@ -19,7 +19,7 @@ export default ({ options, type }) => `
   <div data-web-components-starter-select>
     <label for="${type}"><slot name="label"></slot></label>
     <select id="${type}" name="${type}">
-      ${options.reduce((pre, cur) => `${pre}
+      ${options ? options.reduce((pre, cur) => `${pre}
         <option
           value="${cur.value}"
           ${(selected => selected
@@ -29,7 +29,7 @@ export default ({ options, type }) => `
         >
           ${cur.text}
         </option>
-      `, '')}
+      `, '') : []}
     </select>
   </div>
 `

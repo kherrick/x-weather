@@ -9,9 +9,9 @@ const WebComponentsStarterSelect = class extends HTMLElement {
     container.innerHTML = template({ options: this.options, type: this.type })
 
     const shadowRoot = this.attachShadow({ mode: 'open' }).appendChild(container)
-    const inputNode = shadowRoot.querySelector(`#${this.type}`)
+    const selectNode = shadowRoot.querySelector(`#${this.type}`)
 
-    inputNode.addEventListener(
+    selectNode.addEventListener(
       'change',
       this.inputValueChange.bind(this)
     )
