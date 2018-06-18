@@ -1,15 +1,5 @@
 import { loadComponent } from '../utilities.js'
 
-// import components
-import WebComponentsStarterBooleanRadio from './form-elements/web-components-starter-boolean-radio/web-components-starter-boolean-radio.js'
-import WebComponentsStarterInput from './form-elements/web-components-starter-input/web-components-starter-input.js'
-import WebComponentsStarterSelect from './form-elements/web-components-starter-select/web-components-starter-select.js'
-
-// define components
-WebComponentsStarterBooleanRadio()
-WebComponentsStarterSelect()
-WebComponentsStarterInput()
-
 const template = `
   <style>
     :host {
@@ -127,8 +117,7 @@ const WebComponentsStarterContainer = class extends HTMLElement {
   }
 }
 
-// load the web-components-starter-container on import
-export default loadComponent({
+export default () => loadComponent({
   customElements: customElements,
   tagName: 'web-components-starter-container',
   element: WebComponentsStarterContainer
