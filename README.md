@@ -1,7 +1,7 @@
 web-components-starter
 ======
 
-## A Web Components starter project
+## Diving into web components
 
 [![web-components-starter-screenshot](https://raw.githubusercontent.com/kherrick/web-components-starter/master/assets/web-components-starter-screenshot.png)](https://kherrick.github.io/web-components-starter/)
 
@@ -54,3 +54,10 @@ npx serve -s .
   * `npm run start-custom-elements-shady-dom-esm` - targeting browsers after IE11 (a Custom Elements v1 and [shady DOM polyfill](https://www.polymer-project.org/blog/shadydom) only)
 
   * `npm run start-no-polyfills-iife` - targets evergreen browsers supporting [Custom Elements v1](https://developers.google.com/web/fundamentals/web-components/customelements) and shadow DOM (builds a minimal view in a "vanilla js" style)
+
+## Try out server side rendering:
+
+### Minimal support for server side rendering components can be found by checking out the following npm lifecycle scripts:
+
+* `npm run start-development-ssr-server` - uses babel-node for fast development
+* `npm run build-ie11-iife-ssr` - compiles components and sets up express for rendering them

@@ -1,5 +1,5 @@
 {
-  "version": "0.0.16",
+  "version": "0.0.17",
   "name": "web-components-starter",
   "description": "A Web Components starter project",
   "files": [
@@ -13,6 +13,7 @@
     "build-custom-elements-shady-dom-systemjs": "npm run check && rimraf ./dist && mkdirp ./dist && rollup --config ./config/rollup.config.custom.elements.shady.dom-systemjs.js && npm run copy-custom-elements-shady-dom-systemjs",
     "build-ie11-systemjs": "npm run check && rimraf ./dist && mkdirp ./dist && rollup --config ./config/rollup.config.ie11-systemjs.js && npm run copy-ie11-systemjs",
     "build-ie11-iife": "npm run check && rimraf ./dist && mkdirp ./dist && rollup --config ./config/rollup.config.ie11-iife.js && npm run copy-ie11-iife",
+    "build-ie11-iife-ssr": "npm run check && rimraf ./dist && mkdirp ./dist && rollup --config ./config/rollup.config.ie11-iife-ssr.js",
     "build-no-polyfills-esm": "npm run check && rimraf ./dist && mkdirp ./dist && rollup --config ./config/rollup.config.no.polyfills-esm.js && npm run copy-no-polyfills-esm",
     "build-no-polyfills-iife": "npm run check && rimraf ./dist && mkdirp ./dist && rollup --config ./config/rollup.config.no.polyfills-iife.js && npm run copy-no-polyfills-iife",
     "build": "npm run build-ie11-iife",
@@ -35,6 +36,7 @@
     "serve-no-polyfills-esm": "cd src/ && ln -sf ./index.no.polyfills-esm.html ./index.html && cd .. && rollup --watch --config ./config/rollup.config.no.polyfills-esm.js & npm run browser-sync",
     "serve-no-polyfills-iife": "cd src/ && ln -sf ./index.no.polyfills-iife.html ./index.html && cd .. && rollup --watch --config ./config/rollup.config.no.polyfills-iife.js & npm run browser-sync",
     "serve": "serve-ie11-iife",
+    "start-development-ssr-server": "npx babel-node src/server.js --presets env",
     "start-custom-elements-shady-dom-esm": "npm run build-custom-elements-shady-dom-esm && npm run serve-custom-elements-shady-dom-esm",
     "start-custom-elements-shady-dom-systemjs": "npm run build-custom-elements-shady-dom-systemjs && npm run serve-custom-elements-shady-dom-systemjs",
     "start-ie11-systemjs": "npm run build-ie11-systemjs && npm run serve-ie11-systemjs",
@@ -46,12 +48,14 @@
   },
   "license": "AGPL-3.0",
   "devDependencies": {
+    "@skatejs/ssr": "^0.19.4",
     "@webcomponents/webcomponentsjs": "^1.0.19",
     "babel-cli": "^6.26.0",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-custom-element-classes": "^0.1.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-2": "^6.24.1",
     "browser-sync": "^2.12.5",
     "eslint": "^4.12.0",
     "gh-pages": "^1.2.0",
@@ -59,6 +63,7 @@
     "ncp": "^2.0.0",
     "rollup": "^0.59.4",
     "rollup-plugin-babel": "^3.0.4",
+    "rollup-plugin-commonjs": "^9.1.3",
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-terser": "^1.0.1",
     "rollup-plugin-uglify": "^4.0.0",
@@ -67,5 +72,7 @@
     "webpack": "^4.10.2",
     "webpack-cli": "^3.0.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.16.3"
+  }
 }

@@ -4,7 +4,7 @@ import babel from 'rollup-plugin-babel'
 import glob from 'glob'
 import nodeResolve from 'rollup-plugin-node-resolve'
 
-const input = glob.sync(`${__dirname}/../src/**/*.js`)
+const input = glob.sync(`${__dirname}/../src/**/*.js`, { ignore: `**/server.js` })
 
 export default [
   // ES module version, for modern browsers
