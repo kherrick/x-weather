@@ -20,6 +20,28 @@ export const generateUUID = () => {
   })
 }
 
+// custom getElementById intended for use with undom
+export const getElementById = (id, root) => {
+  // a linkedList would be more performant in time and space complexity
+  let queue = []
+
+  queue.push(root)
+
+  let currentNode
+
+  while (queue.length) {
+    currentNode = queue.shift()
+
+    if (currentNode.id === id) {
+      return currentNode
+    }
+
+    queue.push(...currentNode.children)
+  }
+
+  return false
+}
+
 export const loadComponent = ({ customElements, tagName, element }) => {
   const load = ({ customElements, tagName, element }) => {
     customElements.define(tagName, element)

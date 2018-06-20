@@ -1,4 +1,4 @@
-import { loadComponent } from '../utilities.js'
+import { getElementById, loadComponent, } from '../utilities.js'
 
 const template = `
   <style>
@@ -16,7 +16,7 @@ const template = `
     <web-components-starter-select
       tabindex="1"
       type="selectOptionOne"
-      options='[{
+      options=${escape(`[{
         "text": "Select One",
         "value": ""
       },{
@@ -28,7 +28,7 @@ const template = `
       },{
         "text": "Option Three",
         "value": "optionThree"
-      }]'
+      }]`)}
     >
       <span slot="label">Choose an option</span>
     </web-components-starter-select>
@@ -41,7 +41,7 @@ const template = `
       <span slot="label">A choice</span>
     </web-components-starter-boolean-radio>
 
-    <button tabindex="4" type="submit">Submit</button>
+    <button id="submitButton" tabindex="4" type="submit">Submit</button>
   </form>
 `
 const WebComponentsStarterContainer = class extends HTMLElement {
@@ -54,8 +54,9 @@ const WebComponentsStarterContainer = class extends HTMLElement {
     const container = document.createElement('div')
     container.innerHTML = template
 
-    const shadowRoot = this.attachShadow({ mode: 'open' }).appendChild(container)
-    const button = shadowRoot.querySelector('button')
+    this.attachShadow({ mode: 'open' }).appendChild(container)
+
+    const button = getElementById('submitButton', container)
 
     button.addEventListener('click', this.handleButtonClick.bind(this))
   }
@@ -117,8 +118,10 @@ const WebComponentsStarterContainer = class extends HTMLElement {
   }
 }
 
-export default () => loadComponent({
+export const load = () => loadComponent({
   customElements: customElements,
   tagName: 'web-components-starter-container',
   element: WebComponentsStarterContainer
 })
+
+export default WebComponentsStarterContainer

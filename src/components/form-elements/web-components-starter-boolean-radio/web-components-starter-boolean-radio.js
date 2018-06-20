@@ -1,15 +1,17 @@
-import { loadComponent } from '../../../utilities.js'
+import { getElementById, loadComponent } from '../../../utilities.js'
 import template from './template.js'
 
 const WebComponentsStarterBooleanRadio = class extends HTMLElement {
   constructor() {
     super()
+
     const container = document.createElement('div')
     container.innerHTML = template({ type: this.type })
 
-    const shadowRoot = this.attachShadow({ mode: 'open' }).appendChild(container)
-    const inputNode1 = shadowRoot.querySelector(`#${this.type}RadioOne`)
-    const inputNode2 = shadowRoot.querySelector(`#${this.type}RadioTwo`)
+    this.attachShadow({ mode: 'open' }).appendChild(container)
+
+    const inputNode1 = getElementById(`${this.type}RadioOne`, container)
+    const inputNode2 = getElementById(`${this.type}RadioTwo`, container)
 
     inputNode1.addEventListener(
       'change',
@@ -60,8 +62,10 @@ const WebComponentsStarterBooleanRadio = class extends HTMLElement {
   }
 }
 
-export default () => loadComponent({
+export const load = () => loadComponent({
   customElements: customElements,
   tagName: 'web-components-starter-boolean-radio',
   element: WebComponentsStarterBooleanRadio
 })
+
+export default WebComponentsStarterBooleanRadio

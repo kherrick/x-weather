@@ -1,4 +1,4 @@
-import { generateUUID, loadComponent } from '../../../utilities.js'
+import { generateUUID, getElementById, loadComponent } from '../../../utilities.js'
 import template from './template.js'
 
 const WebComponentsStarterSelect = class extends HTMLElement {
@@ -8,8 +8,9 @@ const WebComponentsStarterSelect = class extends HTMLElement {
     const container = document.createElement('div')
     container.innerHTML = template({ options: this.options, type: this.type })
 
-    const shadowRoot = this.attachShadow({ mode: 'open' }).appendChild(container)
-    const selectNode = shadowRoot.querySelector(`#${this.type}`)
+    this.attachShadow({ mode: 'open' }).appendChild(container)
+
+    const selectNode = getElementById(`${this.type}`, container)
 
     selectNode.addEventListener(
       'change',
@@ -25,7 +26,7 @@ const WebComponentsStarterSelect = class extends HTMLElement {
     let result
 
     try {
-      result = JSON.parse(this.getAttribute('options'))
+      result = JSON.parse(unescape(this.getAttribute('options')))
     } catch (e) {
       result = []
     }
@@ -34,7 +35,15 @@ const WebComponentsStarterSelect = class extends HTMLElement {
   }
 
   get type() {
-    return this.getAttribute('type') || generateUUID()
+    let type = this.getAttribute('type')
+
+    if (!type) {
+      type = generateUUID()
+
+      this.setAttribute('type', type)
+    }
+
+    return type
   }
 
   set type(type) {
@@ -62,8 +71,10 @@ const WebComponentsStarterSelect = class extends HTMLElement {
   }
 }
 
-export default () => loadComponent({
+export const load = () => loadComponent({
   customElements: customElements,
   tagName: 'web-components-starter-select',
   element: WebComponentsStarterSelect
 })
+
+export default WebComponentsStarterSelect

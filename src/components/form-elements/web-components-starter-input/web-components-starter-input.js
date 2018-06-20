@@ -1,4 +1,4 @@
-import { generateUUID, loadComponent } from '../../../utilities.js'
+import { generateUUID, getElementById, loadComponent } from '../../../utilities.js'
 import template from './template.js'
 
 const WebComponentsStarterInput = class extends HTMLElement {
@@ -8,8 +8,9 @@ const WebComponentsStarterInput = class extends HTMLElement {
     const container = document.createElement('div')
     container.innerHTML = template({ type: this.type })
 
-    const shadowRoot = this.attachShadow({ mode: 'open' }).appendChild(container)
-    const inputNode = shadowRoot.querySelector(`#${this.type}`)
+    this.attachShadow({ mode: 'open' }).appendChild(container)
+
+    const inputNode = getElementById(`${this.type}`, container)
 
     inputNode.addEventListener(
       'change',
@@ -22,7 +23,15 @@ const WebComponentsStarterInput = class extends HTMLElement {
   }
 
   get type() {
-    return this.getAttribute('type') || generateUUID()
+    let type = this.getAttribute('type')
+
+    if (!type) {
+      type = generateUUID()
+
+      this.setAttribute('type', type)
+    }
+
+    return type
   }
 
   set type(type) {
@@ -50,8 +59,10 @@ const WebComponentsStarterInput = class extends HTMLElement {
   }
 }
 
-export default () => loadComponent({
+export const load = () => loadComponent({
   customElements: customElements,
   tagName: 'web-components-starter-input',
   element: WebComponentsStarterInput
 })
+
+export default WebComponentsStarterInput
