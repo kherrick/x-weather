@@ -30,13 +30,13 @@ mkdir -p hello-web-components \
 ### Copy the starter index.html to the root of the project
 
  ```bash
- cp node_modules/web-components-starter/dist/build-ie11/index.html ./
+ cp node_modules/web-components-starter/dist/build-ie11-iife/index.html ./
  ```
 
- ### Update the path to the module
+### Update the path to the module
  ```bash
-export C=container I=index N=nomodule WCS=web-components-starter \
-  && sed "s#./$N/$WCS-$C.js#./node_modules/$WCS/dist/build-ie11/$N/$WCS-$C.js#g" ./$I.html > $I.html.new \
+export C=container I=index N=iife WCS=web-components-starter \
+  && sed "s#./$N/main.js#./node_modules/$WCS/dist/build-ie11-$N/$N/main.js#g" ./$I.html > $I.html.new \
   && mv index.html.new index.html
 ```
 
@@ -51,6 +51,6 @@ npx serve -s .
 
   * `npm run start` - by default builds [a view targeting IE11+](https://kherrick.github.io/web-components-starter/) (from IE11, to Edge, Chrome, Firefox, and Safari)
 
-  * `npm run start-custom-elements-shady-dom` - targeting browsers after IE11 (a Custom Elements v1 and [shady DOM polyfill](https://www.polymer-project.org/blog/shadydom) only)
+  * `npm run start-custom-elements-shady-dom-esm` - targeting browsers after IE11 (a Custom Elements v1 and [shady DOM polyfill](https://www.polymer-project.org/blog/shadydom) only)
 
-  * `npm run start-no-polyfills` - targets evergreen browsers supporting [Custom Elements v1](https://developers.google.com/web/fundamentals/web-components/customelements) and shadow DOM (builds a minimal view in a "vanilla js" style)
+  * `npm run start-no-polyfills-iife` - targets evergreen browsers supporting [Custom Elements v1](https://developers.google.com/web/fundamentals/web-components/customelements) and shadow DOM (builds a minimal view in a "vanilla js" style)
