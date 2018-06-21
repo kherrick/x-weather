@@ -30,7 +30,9 @@ export default [
           ]
         ],
         'plugins': [
-          'external-helpers'
+          'external-helpers',
+          'transform-custom-element-classes',
+          'transform-es2015-classes'
         ]
       }),
       (process.env.NODE_ENV == 'production' && uglify())

@@ -6,7 +6,7 @@ export default [
   {
     input: 'src/main.js',
     output: {
-      file: 'dist/main.js',
+      file: 'dist/iife/main.js',
       format: 'iife',
       name: 'Main',
       sourcemap: process.env.NODE_ENV !== 'production'

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Web Components Starter! | A Web Component</title>
+</head>
+<body>
+  <div id="app">
+    <web-components-starter-container></web-components-starter-container>
+  </div>
+  <style>
+    #app {
+      margin: 0 auto;
+    }
+    @media (min-width: 300px) {
+      #app {
+        width: 80%;
+      }
+    }
+    @media (min-width: 992px) {
+      #app {
+        width: 65%;
+      }
+    }
+    @media (min-width: 1200px) {
+      #app {
+        width: 50%;
+      }
+    }
+  </style>
+
+  <!-- The actual Web component -->
+  <script
+    defer
+    charset="utf-8"
+    src="./iife/main.js"
+  ></script>
+</body>
+</html>

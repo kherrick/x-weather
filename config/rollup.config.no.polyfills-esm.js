@@ -1,4 +1,4 @@
-import { uglify } from 'rollup-plugin-uglify'
+import { terser } from "rollup-plugin-terser";
 
 import babel from 'rollup-plugin-babel'
 import glob from 'glob'
@@ -10,8 +10,8 @@ export default [
   {
     input,
     output: {
-      dir: 'dist/systemjs',
-      format: 'system',
+      dir: 'dist/esm',
+      format: 'es',
       sourcemap: process.env.NODE_ENV !== 'production'
     },
     plugins: [
@@ -22,18 +22,18 @@ export default [
           [
             'env',
             {
-              'targets': {
-                'ie': 11
-              },
+              'targets': "> 5%",
               'modules': false
             }
           ]
         ],
         'plugins': [
-          'external-helpers'
+          'external-helpers',
+          'transform-custom-element-classes',
+          'transform-es2015-classes'
         ]
       }),
-      (process.env.NODE_ENV == 'production' && uglify())
+      (process.env.NODE_ENV == 'production' && terser())
     ],
     experimentalCodeSplitting: true,
     experimentalDynamicImport: true

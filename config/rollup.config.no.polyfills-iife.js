@@ -1,17 +1,15 @@
 import { uglify } from 'rollup-plugin-uglify'
 
 import babel from 'rollup-plugin-babel'
-import glob from 'glob'
 import nodeResolve from 'rollup-plugin-node-resolve'
-
-const input = glob.sync(`${__dirname}/../src/**/*.js`)
 
 export default [
   {
-    input,
+    input: 'src/main.js',
     output: {
-      dir: 'dist/systemjs',
-      format: 'system',
+      file: 'dist/iife/main.js',
+      format: 'iife',
+      name: 'Main',
       sourcemap: process.env.NODE_ENV !== 'production'
     },
     plugins: [
@@ -22,20 +20,18 @@ export default [
           [
             'env',
             {
-              'targets': {
-                'ie': 11
-              },
+              'targets': "> 5%",
               'modules': false
             }
           ]
         ],
         'plugins': [
-          'external-helpers'
+          'external-helpers',
+          'transform-custom-element-classes',
+          'transform-es2015-classes'
         ]
       }),
       (process.env.NODE_ENV == 'production' && uglify())
-    ],
-    experimentalCodeSplitting: true,
-    experimentalDynamicImport: true
+    ]
   }
 ]
