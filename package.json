@@ -1,12 +1,12 @@
 {
-  "version": "0.0.11",
+  "version": "0.0.12",
   "name": "web-components-starter",
   "description": "A Web Components starter project",
   "files": [
     "dist",
     "src"
   ],
-  "main": "dist/main.js",
+  "main": "dist/build-no-polyfills/module/main.js",
   "scripts": {
     "browser-sync": "browser-sync start --server --serveStatic ./dist/ --files ./dist/**/*.*",
     "build-custom-elements-shady-dom": "npm run check && rimraf ./dist && mkdirp ./dist && rollup --config ./config/rollup.config.custom.elements.shady.dom.js && npm run copy-custom-elements-shady-dom",
