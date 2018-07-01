@@ -2,11 +2,15 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Web Components Starter! | A Web Component</title>
+  <title>XWeather</title>
 </head>
 <body>
   <div id="app">
-    <web-components-starter-container></web-components-starter-container>
+    <x-weather
+      appid="NOT_A_REAL_APP_ID"
+      host="api.openweathermap.org"
+      temp="-"
+    ><span slot="location">Detroit, Michigan, United States</span></x-weather>
   </div>
   <style>
     #app {

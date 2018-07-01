@@ -1,7 +1,7 @@
 {
-  "version": "0.0.17",
-  "name": "web-components-starter",
-  "description": "A Web Components starter project",
+  "name": "x-weather",
+  "version": "0.0.1",
+  "description": "A project to view weather information.",
   "files": [
     "dist",
     "src"
