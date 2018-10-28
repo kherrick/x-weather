@@ -1,9 +1,9 @@
 {
   "name": "x-weather",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "A project to view weather information.",
   "files": [
-    "dist",
+    "lib",
     "src"
   ],
   "main": "dist/build-no-polyfills-esm/esm/main.js",
@@ -18,7 +18,7 @@
     "build-no-polyfills-esm": "npx rimraf ./dist && mkdirp ./dist && npx rollup --config ./config/rollup.config.no.polyfills-esm.js && npm run copy-no-polyfills-esm",
     "build-no-polyfills-iife": "npx rimraf ./dist && mkdirp ./dist && npx rollup --config ./config/rollup.config.no.polyfills-iife.js && npm run copy-no-polyfills-iife",
     "build": "npm run bootstrap && npm run build-ie11-iife",
-    "bundle-modules": "npx rimraf ./bundle && mkdirp ./bundle && npx rimraf ./dist && npm run build-ie11-systemjs && npx ncp ./dist ./bundle/build-ie11-systemjs && npx rimraf ./dist && npm run build-ie11-iife && npx ncp ./dist ./bundle/build-ie11-iife && npx rimraf ./dist && npm run build-no-polyfills-esm && npx ncp ./dist ./bundle/build-no-polyfills-esm && npx rimraf ./dist && npm run build-no-polyfills-iife && npx ncp ./dist ./bundle/build-no-polyfills-iife && npx rimraf ./dist && npm run build-custom-elements-shady-dom-esm && npx ncp ./dist ./bundle/build-custom-elements-shady-dom-esm && npx rimraf ./dist && npm run build-custom-elements-shady-dom-systemjs && npx ncp ./dist ./bundle/build-custom-elements-shady-dom-systemjs && npx rimraf ./dist && npx ncp ./bundle ./dist && npx rimraf ./bundle",
+    "bundle-modules": "npx rimraf ./bundle && mkdirp ./bundle && npx rimraf ./dist ./lib && npm run build-ie11-systemjs && npx ncp ./dist ./bundle/build-ie11-systemjs && npx rimraf ./dist && npm run build-ie11-iife && npx ncp ./dist ./bundle/build-ie11-iife && npx rimraf ./dist && npm run build-no-polyfills-esm && npx ncp ./dist ./bundle/build-no-polyfills-esm && npx rimraf ./dist && npm run build-no-polyfills-iife && npx ncp ./dist ./bundle/build-no-polyfills-iife && npx rimraf ./dist && npm run build-custom-elements-shady-dom-esm && npx ncp ./dist ./bundle/build-custom-elements-shady-dom-esm && npx rimraf ./dist && npm run build-custom-elements-shady-dom-systemjs && npx ncp ./dist ./bundle/build-custom-elements-shady-dom-systemjs && npx rimraf ./dist && npx ncp ./bundle ./dist && npx rimraf ./bundle && npx ncp ./dist ./lib",
     "copy-custom-elements-shady-dom-esm": "npx ncp src/index.custom.elements.shady.dom-esm.html dist/index.html && npx ncp assets/favicon.ico dist/",
     "copy-custom-elements-shady-dom-systemjs": "npx ncp src/index.custom.elements.shady.dom-systemjs.html dist/index.html && npx ncp assets/favicon.ico dist/",
     "copy-ie11-systemjs": "npx ncp src/index.ie11-systemjs.html dist/index.html && npx ncp assets/favicon.ico dist/",
@@ -67,6 +67,7 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-terser": "^1.0.1",
     "rollup-plugin-uglify": "^4.0.0",
+    "rollup-watch": "^4.3.1",
     "serve": "^9.0.0"
   },
   "dependencies": {

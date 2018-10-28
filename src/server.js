@@ -72,7 +72,7 @@ const template = (component) => {
           appid="NOT_A_REAL_APP_ID"
           host="api.openweathermap.org"
           temp="-"
-        ><span slot="location">Detroit, Michigan, United States</span></x-weather>
+        ><span slot="location">Detroit, Michigan</span></x-weather>
       </div>
       <style>
         #app {
@@ -134,7 +134,7 @@ const template = (component) => {
 }
 
 app.get('/', (req, res) => {
-  // load components (do the container first)
+  // load components
   XWeatherLoad()
 
   render(new XWeather).then(component => {
