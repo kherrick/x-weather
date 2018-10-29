@@ -1,4 +1,5 @@
 import { dateTime, isObjectEmpty, loadComponent, unixEpochToDate } from '../utilities.js'
+import forecast from '../../fixtures/forecast'
 
 const template = `
   <style>
@@ -35,14 +36,44 @@ const XForecast = class extends HTMLElement {
     this.attachShadow({ mode: 'open' }).appendChild(container)
   }
 
-  render() {
-    const today = dateTime(new Date()).Y('-').m('-').d('').getResults()
+  connectedCallback() {
+    this.refresh().then(res => {
+      this.render(res)
+    })
+  }
 
+  get appid() {
+    return this.getAttribute('appid')
+  }
+
+  set appid(appid) {
+    this.setAttribute('appid', appid)
+  }
+
+  get host() {
+    return this.getAttribute('host')
+  }
+
+  set host(host) {
+    this.setAttribute('host', host)
+  }
+
+  get location() {
+    return this.getAttribute('location')
+  }
+
+  set location(location) {
+    this.setAttribute('location', location)
+  }
+
+  _buildDateContainer(forecast) {
     const dateContainer = document.createElement('div')
 
     // build forecast list
-    if (this.forecast && !isObjectEmpty(this.forecast)) {
-      this.forecast.forEach(props => {
+    if (forecast && !isObjectEmpty(forecast)) {
+      const today = dateTime(new Date()).Y('-').m('-').d('').getResults()
+
+      forecast.forEach(props => {
         const { dt, temp, pressure, humidity, weather, speed, deg, clouds, rain } = props // eslint-disable-line no-unused-vars
 
         const dateItem = document.createElement('ul')
@@ -79,37 +110,49 @@ const XForecast = class extends HTMLElement {
       })
     }
 
-    // get forecast node
-    const forecastDayNode = this.shadowRoot.querySelector('[data-x-forecast]')
-    forecastDayNode.appendChild(dateContainer)
+    return dateContainer
   }
 
-  connectedCallback() {
-    const appid = this.parentElement.getAttribute('appid')
-    const host = this.parentElement.getAttribute('host')
-    const location = this.parentElement.getAttribute('location')
-
+  _getForecast({ appid, host, location }) {
     if (appid && host && location) {
-      this.getForecast({ appid, host, location }).then(result => {
+      return this._serviceHandler({ appid, host, location }).then(result => {
         const { city, cod, message, cnt, list } = result // eslint-disable-line no-unused-vars
 
         // set the class property "forecast" to result.list
-        this.forecast = list
-        this.render()
+        return list
       })
     }
   }
 
-  getForecast({ appid, host, location }) {
-    const url = `https://${host}/data/2.5/forecast/daily?q=${location}&mode=json&units=metric&cnt=14&appid=${appid}`
+  refresh() {
+    const config = {
+      appid: this.parentElement.getAttribute('appid'),
+      host: this.parentElement.getAttribute('host'),
+      location: this.parentElement.getAttribute('location')
+    }
 
-    return fetch(url, {
-      method: 'GET'
-    }).then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-    })
+    return this._getForecast(config)
+  }
+
+  render(res) {
+    const dateContainer = this._buildDateContainer(res)
+
+    // get forecast node
+    const forecastDayNode = this.shadowRoot.querySelector('[data-x-forecast]')
+
+    forecastDayNode.appendChild(dateContainer)
+  }
+
+  _serviceHandler({ appid, host, location }) {
+    const url = `https://${host}/data/2.5/forecast/daily?q=${location}&mode=json&units=metric&cnt=14&appid=${appid}` // eslint-disable-line no-unused-vars
+    return forecast
+    // return fetch(url, {
+    //   method: 'GET'
+    // }).then(res => {
+    //   if (res.ok) {
+    //     return res.json()
+    //   }
+    // })
   }
 }
 
