@@ -85,7 +85,7 @@ const XCurrent = class extends HTMLElement {
         this.temperature = Number.parseFloat(celsius).toFixed(2)
 
         // set icon src
-        this.iconSrc = `http://openweathermap.org/img/w/${weather[0].icon}.png`
+        this.iconSrc = `https://openweathermap.org/img/w/${weather[0].icon}.png`
 
         // set icon alt
         this.iconAlt = weather[0].description

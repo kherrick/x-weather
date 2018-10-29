@@ -18,7 +18,7 @@ x-weather
 
 * Method 2:
   - Add the component via jsDelivr:
-    * `<script src="https://cdn.jsdelivr.net/npm/x-weather@0.0.4/lib/build-ie11-iife/iife/main.js"></script>`
+    * `<script src="https://cdn.jsdelivr.net/npm/x-weather@0.0.5/lib/build-ie11-iife/iife/main.js"></script>`
 
 
 ## Add polyfills
