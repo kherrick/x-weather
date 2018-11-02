@@ -1,4 +1,4 @@
-import { loadComponent, setTextContent } from '../utilities.js'
+import { loadComponent } from '../utilities.js'
 
 const template = `
   <style>
@@ -7,13 +7,16 @@ const template = `
     }
 
     div[data-x-weather] #location {
-      margin: 0 0 1rem 1rem;
+      border: 0;
+      font-style: italic;
+      margin: 0 0 0 0.5rem;
+      padding: 0;
     }
   </style>
 
   <div data-x-weather>
-    <em><small id="location"></small></em>
-    <em><small><a href="#" id="refresh">refresh</a></small></em>
+    <div><input id="location"></input></div>
+
     <slot></slot>
   </div>
 `
@@ -33,33 +36,38 @@ const XWeather = class extends HTMLElement {
     this._upgradeProperty('host')
     this._upgradeProperty('location')
 
-    this.shadowRoot.querySelector('#refresh').onclick = function() {
-      xForecast.refresh()
-      xForecast.render()
+    this.xCurrent = this.querySelector('x-current')
+    this.xForecast = this.querySelector('x-forecast')
 
-      xCurrent.refresh()
-      xCurrent.render()
-    }
-    setTextContent(this.shadowRoot, 'location', this.location)
+    this._renderLocation(this.location)
+
+    const location = this.shadowRoot.querySelector('#location')
+
+    location.addEventListener('change', () => {
+      this.location = location.value
+
+      this.xCurrent.refresh().then(currentWeather => {
+        this.xCurrent.render(currentWeather)
+      })
+
+      this.xForecast.refresh().then(currentForecast => {
+        this.xForecast.render(currentForecast)
+      })
+    })
   }
 
   attributeChangedCallback(attrName, oldVal, newVal) {
-    if (attrName === 'appid' || attrName === 'host' || attrName === 'location') {
-      if (oldVal !== newVal) {
-        if (attrName === 'location') {
-          setTextContent(this.shadowRoot, 'location', this.location)
-        }
+    if (oldVal !== newVal && attrName === 'appid' || attrName === 'host' || attrName === 'location') {
+      if (attrName === 'location') {
+        this._renderLocation(this.location)
+      }
 
-        const xCurrent = this.querySelector('x-current')
-        const xForecast = this.querySelector('x-forecast')
+      if (this.xCurrent) {
+        this.xCurrent.setAttribute(attrName, newVal)
+      }
 
-        if (xCurrent) {
-          xCurrent.setAttribute(attrName, newVal)
-        }
-
-        if (xForecast) {
-          xForecast.setAttribute(attrName, newVal)
-        }
+      if (this.xForecast) {
+        this.xForecast.setAttribute(attrName, newVal)
       }
     }
   }
@@ -90,6 +98,10 @@ const XWeather = class extends HTMLElement {
 
   set location(location) {
     this.setAttribute('location', location)
+  }
+
+  _renderLocation(location) {
+    this.shadowRoot.querySelector('#location').value = location
   }
 
   _upgradeProperty(prop) {

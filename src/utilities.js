@@ -1,3 +1,19 @@
+export const convertTemperature = (t, calcString = 'cToF') => {
+  const cToK = t => t + 273.15
+  const kToC = t => t - 273.15
+  const cToF = t => (9 / 5 * t) + 32
+  const fToC = t => (t - 32) * 5 / 9
+
+  return {
+    cToK,
+    kToC,
+    cToF,
+    fToC,
+    kToF: t => cToF(kToC(t)),
+    fToK: t => cToK(fToC(t))
+  }[calcString](t)
+}
+
 /**
  * attempting to be RFC4122 version 4 compliant adapted from:
  * https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
@@ -57,14 +73,6 @@ export const loadComponent = ({ customElements, tagName, element }) => {
       load({ customElements, tagName, element })
     })
   }
-}
-
-export const setTextContent = (shadowRoot, id, value) => {
-  // https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent#Differences_from_innerText
-  // Sometimes people use innerHTML to retrieve or write text inside an element.
-  // textContent has better performance because its value is not parsed as HTML.
-  // Moreover, using textContent can prevent XSS attacks.
-  shadowRoot.querySelector(`#${id}`).textContent = value
 }
 
 export const unixEpochToDate = timestamp => new Date(timestamp * 1000)
