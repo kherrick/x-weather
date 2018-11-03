@@ -1,10 +1,18 @@
 {
   "name": "x-weather",
-  "version": "0.0.5",
-  "description": "A project to view weather information.",
+  "version": "0.1.0",
+  "description": "A collection of web components implementing portions of the OpenWeatherMap API.",
   "files": [
     "lib",
     "src"
+  ],
+  "keywords": [
+    "weather",
+    "weather app",
+    "web components",
+    "custom elements",
+    "internet explorer",
+    "service worker"
   ],
   "main": "dist/build-no-polyfills-esm/esm/main.js",
   "scripts": {

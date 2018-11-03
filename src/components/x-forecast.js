@@ -1,5 +1,5 @@
-import { dateTime, isObjectEmpty, loadComponent, unixEpochToDate } from '../utilities.js'
-import forecast from '../../fixtures/forecast'
+import { convertTemperature, dateTime, isObjectEmpty, loadComponent, unixEpochToDate } from '../utilities.js'
+// import forecast from '../../fixtures/forecast'
 
 const template = `
   <style>
@@ -23,6 +23,8 @@ const template = `
 
   <div data-x-forecast>
     <h3>Forecast</h3>
+
+    <div data-x-forecast-date-container>
   <div/>
 `
 
@@ -37,9 +39,23 @@ const XForecast = class extends HTMLElement {
   }
 
   connectedCallback() {
-    this.refresh().then(res => {
-      this.render(res)
+    this.refresh().then(currentForecast => {
+      this.render(currentForecast)
+
+      // set this as a class property to be used later
+      this.currentForecast = currentForecast
     })
+  }
+
+  attributeChangedCallback(attrName, oldVal, newVal) {
+    // handle the scale attribute change
+    if (oldVal !== newVal && attrName === 'scale' ) {
+      this.render(this.currentForecast)
+    }
+  }
+
+  static get observedAttributes() {
+    return [ 'scale' ]
   }
 
   get appid() {
@@ -66,8 +82,17 @@ const XForecast = class extends HTMLElement {
     this.setAttribute('location', location)
   }
 
+  get scale() {
+    return this.getAttribute('scale')
+  }
+
+  set scale(scale) {
+    this.setAttribute('scale', scale)
+  }
+
   _buildDateContainer(forecast) {
     const dateContainer = document.createElement('div')
+    dateContainer.setAttribute('data-x-forecast-date-container', '')
 
     // build forecast list
     if (forecast && !isObjectEmpty(forecast)) {
@@ -81,6 +106,9 @@ const XForecast = class extends HTMLElement {
 
         const timestamp = unixEpochToDate(dt)
         const current = dateTime(timestamp).Y('-').m('-').d().getResults()
+
+        const day = this.scale === 'F' ? convertTemperature(temp.day, 'cToF') : temp.day
+        const night = this.scale === 'F' ? convertTemperature(temp.night, 'cToF') : temp.night
 
         if (current === today) {
           dayOfWeek.textContent = 'Today:'
@@ -97,12 +125,12 @@ const XForecast = class extends HTMLElement {
         dateItem.appendChild(dayOfWeekItem)
 
         const dayListItem = document.createElement('li')
-        dayListItem.textContent = `Day: ${Number.parseFloat(temp.day).toFixed(2)}°C`
+        dayListItem.textContent = `Day: ${Number.parseFloat(day).toFixed(2)}°${this.scale}`
 
         dateItem.appendChild(dayListItem)
 
         const nightListItem = document.createElement('li')
-        nightListItem.textContent = `Night: ${Number.parseFloat(temp.night).toFixed(2)}°C`
+        nightListItem.textContent = `Night: ${Number.parseFloat(night).toFixed(2)}°${this.scale}`
 
         dateItem.appendChild(nightListItem)
 
@@ -124,6 +152,19 @@ const XForecast = class extends HTMLElement {
     }
   }
 
+  _serviceHandler({ appid, host, location }) {
+    const url = `https://${host}/data/2.5/forecast/daily?q=${location}&mode=json&units=metric&cnt=14&appid=${appid}` // eslint-disable-line no-unused-vars
+
+    // return forecast
+    return fetch(url, {
+      method: 'GET'
+    }).then(res => {
+      if (res.ok) {
+        return res.json()
+      }
+    })
+  }
+
   refresh() {
     const config = {
       appid: this.parentElement.getAttribute('appid'),
@@ -135,24 +176,10 @@ const XForecast = class extends HTMLElement {
   }
 
   render(res) {
-    const dateContainer = this._buildDateContainer(res)
-
-    // get forecast node
     const forecastDayNode = this.shadowRoot.querySelector('[data-x-forecast]')
+    const dateContainerNode = this.shadowRoot.querySelector('[data-x-forecast] > [data-x-forecast-date-container]')
 
-    forecastDayNode.appendChild(dateContainer)
-  }
-
-  _serviceHandler({ appid, host, location }) {
-    const url = `https://${host}/data/2.5/forecast/daily?q=${location}&mode=json&units=metric&cnt=14&appid=${appid}` // eslint-disable-line no-unused-vars
-    return forecast
-    // return fetch(url, {
-    //   method: 'GET'
-    // }).then(res => {
-    //   if (res.ok) {
-    //     return res.json()
-    //   }
-    // })
+    forecastDayNode.replaceChild(this._buildDateContainer(res), dateContainerNode)
   }
 }
 
