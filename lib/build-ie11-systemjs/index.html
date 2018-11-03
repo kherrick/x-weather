@@ -10,10 +10,13 @@
 <body>
   <div id="app">
     <x-weather
-      appid="NOT_A_REAL_APP_ID"
+      appid="NOT_A_REAL_API_KEY"
       host="api.openweathermap.org"
-      temp="-"
-    ><span slot="location">Detroit, Michigan</span></x-weather>
+      location="Phoenix, Arizona"
+    >
+      <x-current scale="F"></x-current>
+      <x-forecast scale="F"></x-forecast>
+    </x-weather>
   </div>
   <style>
     #app {

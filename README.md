@@ -3,25 +3,15 @@ x-weather
 
 ## About
 
-  * A web component implementing portions of the [OpenWeatherMap API](https://openweathermap.org/api).
+  * A collection of [web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) implementing portions of the [OpenWeatherMap API](https://openweathermap.org/api).
 
-    <img src="https://raw.githubusercontent.com/kherrick/x-weather/master/assets/x-weather-screenshot.png" />
+    <a href="https://kherrick.github.io/x-weather/">
+      <img src="https://raw.githubusercontent.com/kherrick/x-weather/master/assets/x-weather-screenshot.png" />
+    </a>
 
 ## Installation
 
-* Method 1:
-
-  - Install the npm package
-    * `npm i x-weather`
-  - Import the package into a project
-    * `import 'x-weather/lib/build-ie11-iife/iife/main'`
-
-* Method 2:
-  - Add the component via jsDelivr:
-    * `<script src="https://cdn.jsdelivr.net/npm/x-weather@0.0.6/lib/build-ie11-iife/iife/main.js"></script>`
-
-
-## Add polyfills
+### Add Internet Explorer 11 compatible polyfills
 
 ```html
   <div id="ce-es5-shim">
@@ -48,18 +38,30 @@ x-weather
   ></script>
 ```
 
+### Load and register the web component in the CustomElementRegistry
+
+```html
+  <script src="https://cdn.jsdelivr.net/npm/x-weather@latest/lib/build-ie11-iife/iife/main.js"></script>
+```
+
 ## Usage
 
-* [Sign up for an API key](https://home.openweathermap.org/users/sign_up) and use the custom element
+* After installation and [signing up for an API key](https://home.openweathermap.org/users/sign_up), use the custom element:
 
 ```html
   <x-weather
     appid="NOT_A_REAL_API_KEY"
     host="api.openweathermap.org"
-    location="Detroit, Michigan"
+    location="Phoenix, Arizona"
   >
-    <x-current></x-current>
-    <x-forecast></x-forecast>
+    <x-current scale="F"></x-current>
+    <x-forecast scale="F"></x-forecast>
   </x-weather>
 ```
 
+## Additional information
+
+* Other builds and examples (including basic service workers) can be found inside the [lib folder](https://github.com/kherrick/x-weather/tree/master/lib)
+* The package can be installed and imported by npm:
+  - `npm i x-weather`
+  - `import 'x-weather/lib/build-no-polyfills-esm/esm/main'`

@@ -9,8 +9,9 @@ const template = `
     div[data-x-weather] #location {
       border: 0;
       font-style: italic;
-      margin: 0 0 0 0.5rem;
-      padding: 0;
+      margin: 0 0 0 2.5%;
+      padding: 0 2.5% 0 0;
+      width: 95%;
     }
   </style>
 
@@ -48,10 +49,14 @@ const XWeather = class extends HTMLElement {
 
       this.xCurrent.refresh().then(currentWeather => {
         this.xCurrent.render(currentWeather)
+        // set this as a class property to be used later
+        this.xCurrent.currentWeather = currentWeather
       })
 
       this.xForecast.refresh().then(currentForecast => {
         this.xForecast.render(currentForecast)
+        // set this as a class property to be used later
+        this.xForecast.currentForecast = currentForecast
       })
     })
   }
