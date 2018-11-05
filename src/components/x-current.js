@@ -163,7 +163,7 @@ const XCurrent = class extends HTMLElement {
 
   _getCurrentWeather({ appid, host, location }) {
     if (appid && host && location) {
-      // this is a main API call, and ultimately should trigger an attribute change
+
       return this._serviceHandler({ appid, host, location }).then(result => {
         const { coord, weather, base, main, visibility, wind, clouds, dt, sys, id, name, cod } = result // eslint-disable-line no-unused-vars
 

@@ -39,8 +39,8 @@ const XForecast = class extends HTMLElement {
   }
 
   connectedCallback() {
-    this.refresh().then(currentForecast => {
-      this.render(currentForecast)
+    this.refresh().then((currentForecast) => {
+      this.render(currentForecast, this.days)
 
       // set this as a class property to be used later
       this.currentForecast = currentForecast
@@ -48,14 +48,22 @@ const XForecast = class extends HTMLElement {
   }
 
   attributeChangedCallback(attrName, oldVal, newVal) {
-    // handle the scale attribute change
-    if (oldVal !== newVal && attrName === 'scale' ) {
-      this.render(this.currentForecast)
+    // handle the scale and days attribute change
+    if (oldVal === newVal) {
+      return
+    }
+
+    if (this.days === null) {
+      return
+    }
+
+    if (attrName === 'days' || attrName === 'scale') {
+      this.render(this.currentForecast, this.days)
     }
   }
 
   static get observedAttributes() {
-    return [ 'scale' ]
+    return [ 'days', 'scale' ]
   }
 
   get appid() {
@@ -64,6 +72,14 @@ const XForecast = class extends HTMLElement {
 
   set appid(appid) {
     this.setAttribute('appid', appid)
+  }
+
+  get days() {
+    return this.getAttribute('days')
+  }
+
+  set days(days) {
+    this.setAttribute('days', days)
   }
 
   get host() {
@@ -90,7 +106,49 @@ const XForecast = class extends HTMLElement {
     this.setAttribute('scale', scale)
   }
 
-  _buildDateContainer(forecast) {
+  _buildDayOfWeek({ dt, today }) {
+    const dayOfWeek = document.createElement('u')
+    const timestamp = unixEpochToDate(dt)
+    const current = dateTime(timestamp).Y('-').m('-').d().getResults()
+
+    if (current === today) {
+      dayOfWeek.textContent = 'Today:'
+    } else {
+      const weekDay = dateTime(timestamp)['date'].toLocaleString('en-US', { weekday: 'long'} )
+      const ddMM = dateTime(timestamp).m('/').d().getResults()
+
+      dayOfWeek.textContent = `${weekDay} (${ddMM}):`
+    }
+
+    const dayOfWeekItem = document.createElement('li')
+    dayOfWeekItem.appendChild(dayOfWeek)
+
+    return dayOfWeekItem
+  }
+
+  _buildWeatherIcon({ description, icon }) {
+    const iconAlt = description
+    const iconSrc = `https://openweathermap.org/img/w/${icon}.png`
+
+    const weatherImg = document.createElement('img')
+    weatherImg.setAttribute('src', iconSrc)
+    weatherImg.setAttribute('alt', iconAlt)
+
+    const weatherIcon = document.createElement('li')
+    weatherIcon.appendChild(weatherImg)
+
+    return weatherIcon
+  }
+
+  _buildTimeOfDayForecast({ timeOfDayTemp, type }) {
+    const temp = this.scale === 'F' ? convertTemperature(timeOfDayTemp, 'cToF') : timeOfDayTemp
+    const dayListItem = document.createElement('li')
+    dayListItem.textContent = `${type}: ${Number.parseFloat(temp).toFixed(2)}°${this.scale}`
+
+    return dayListItem
+  }
+
+  _buildDateContainer(forecast, days) {
     const dateContainer = document.createElement('div')
     dateContainer.setAttribute('data-x-forecast-date-container', '')
 
@@ -98,40 +156,27 @@ const XForecast = class extends HTMLElement {
     if (forecast && !isObjectEmpty(forecast)) {
       const today = dateTime(new Date()).Y('-').m('-').d('').getResults()
 
+      // shorten the forecast to the requested number of days, https://mzl.la/2JDIuy6
+      // if the attribute is changed to be smaller
+      if (forecast.length > days) {
+        forecast.length = days;
+      }
+
       forecast.forEach(props => {
         const { dt, temp, pressure, humidity, weather, speed, deg, clouds, rain } = props // eslint-disable-line no-unused-vars
 
         const dateItem = document.createElement('ul')
-        const dayOfWeek = document.createElement('u')
 
-        const timestamp = unixEpochToDate(dt)
-        const current = dateTime(timestamp).Y('-').m('-').d().getResults()
-
-        const day = this.scale === 'F' ? convertTemperature(temp.day, 'cToF') : temp.day
-        const night = this.scale === 'F' ? convertTemperature(temp.night, 'cToF') : temp.night
-
-        if (current === today) {
-          dayOfWeek.textContent = 'Today:'
-        } else {
-          const weekDay = dateTime(timestamp)['date'].toLocaleString('en-US', { weekday: 'long'} )
-          const ddMM = dateTime(timestamp).m('/').d().getResults()
-
-          dayOfWeek.textContent = `${weekDay} (${ddMM}):`
-        }
-
-        const dayOfWeekItem = document.createElement('li')
-        dayOfWeekItem.appendChild(dayOfWeek)
-
+        const dayOfWeekItem = this._buildDayOfWeek({ dt, today })
         dateItem.appendChild(dayOfWeekItem)
 
-        const dayListItem = document.createElement('li')
-        dayListItem.textContent = `Day: ${Number.parseFloat(day).toFixed(2)}°${this.scale}`
+        const weatherIcon = this._buildWeatherIcon(weather[0])
+        dateItem.appendChild(weatherIcon)
 
+        const dayListItem = this._buildTimeOfDayForecast({ timeOfDayTemp: temp.day, type: 'Day' })
         dateItem.appendChild(dayListItem)
 
-        const nightListItem = document.createElement('li')
-        nightListItem.textContent = `Night: ${Number.parseFloat(night).toFixed(2)}°${this.scale}`
-
+        const nightListItem = this._buildTimeOfDayForecast({ timeOfDayTemp: temp.night, type: 'Night' })
         dateItem.appendChild(nightListItem)
 
         dateContainer.appendChild(dateItem)
@@ -146,7 +191,6 @@ const XForecast = class extends HTMLElement {
       return this._serviceHandler({ appid, host, location }).then(result => {
         const { city, cod, message, cnt, list } = result // eslint-disable-line no-unused-vars
 
-        // set the class property "forecast" to result.list
         return list
       })
     }
@@ -175,11 +219,11 @@ const XForecast = class extends HTMLElement {
     return this._getForecast(config)
   }
 
-  render(res) {
+  render(res, days) {
     const forecastDayNode = this.shadowRoot.querySelector('[data-x-forecast]')
     const dateContainerNode = this.shadowRoot.querySelector('[data-x-forecast] > [data-x-forecast-date-container]')
 
-    forecastDayNode.replaceChild(this._buildDateContainer(res), dateContainerNode)
+    forecastDayNode.replaceChild(this._buildDateContainer(res, days), dateContainerNode)
   }
 }
 

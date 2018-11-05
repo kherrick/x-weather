@@ -55,7 +55,7 @@ x-weather
     location="Phoenix, Arizona"
   >
     <x-current scale="F"></x-current>
-    <x-forecast scale="F"></x-forecast>
+    <x-forecast days="2" scale="F"></x-forecast>
   </x-weather>
 ```
 
