@@ -10,15 +10,6 @@ const template = `
     div[data-x-forecast] h3 {
       padding-left: 0.5rem;
     }
-
-    div[data-x-forecast] ul {
-      list-style-type: none;
-      padding: 0 0 1rem 1.5rem;
-    }
-
-    div[data-x-forecast] ul > li {
-      padding: 0.5rem 0 0 0;
-    }
   </style>
 
   <div data-x-forecast>
@@ -106,48 +97,6 @@ const XForecast = class extends HTMLElement {
     this.setAttribute('scale', scale)
   }
 
-  _buildDayOfWeek({ dt, today }) {
-    const dayOfWeek = document.createElement('u')
-    const timestamp = unixEpochToDate(dt)
-    const current = dateTime(timestamp).Y('-').m('-').d().getResults()
-
-    if (current === today) {
-      dayOfWeek.textContent = 'Today:'
-    } else {
-      const weekDay = dateTime(timestamp)['date'].toLocaleString('en-US', { weekday: 'long'} )
-      const ddMM = dateTime(timestamp).m('/').d().getResults()
-
-      dayOfWeek.textContent = `${weekDay} (${ddMM}):`
-    }
-
-    const dayOfWeekItem = document.createElement('li')
-    dayOfWeekItem.appendChild(dayOfWeek)
-
-    return dayOfWeekItem
-  }
-
-  _buildWeatherIcon({ description, icon }) {
-    const iconAlt = description
-    const iconSrc = `https://openweathermap.org/img/w/${icon}.png`
-
-    const weatherImg = document.createElement('img')
-    weatherImg.setAttribute('src', iconSrc)
-    weatherImg.setAttribute('alt', iconAlt)
-
-    const weatherIcon = document.createElement('li')
-    weatherIcon.appendChild(weatherImg)
-
-    return weatherIcon
-  }
-
-  _buildTimeOfDayForecast({ timeOfDayTemp, type }) {
-    const temp = this.scale === 'F' ? convertTemperature(timeOfDayTemp, 'cToF') : timeOfDayTemp
-    const dayListItem = document.createElement('li')
-    dayListItem.textContent = `${type}: ${Number.parseFloat(temp).toFixed(2)}°${this.scale}`
-
-    return dayListItem
-  }
-
   _buildDateContainer(forecast, days) {
     const dateContainer = document.createElement('div')
     dateContainer.setAttribute('data-x-forecast-date-container', '')
@@ -165,25 +114,37 @@ const XForecast = class extends HTMLElement {
       forecast.forEach(props => {
         const { dt, temp, pressure, humidity, weather, speed, deg, clouds, rain } = props // eslint-disable-line no-unused-vars
 
-        const dateItem = document.createElement('ul')
-
-        const dayOfWeekItem = this._buildDayOfWeek({ dt, today })
-        dateItem.appendChild(dayOfWeekItem)
-
-        const weatherIcon = this._buildWeatherIcon(weather[0])
-        dateItem.appendChild(weatherIcon)
-
-        const dayListItem = this._buildTimeOfDayForecast({ timeOfDayTemp: temp.day, type: 'Day' })
-        dateItem.appendChild(dayListItem)
-
-        const nightListItem = this._buildTimeOfDayForecast({ timeOfDayTemp: temp.night, type: 'Night' })
-        dateItem.appendChild(nightListItem)
+        const dateItem = document.createElement('x-forecast-item')
+        dateItem.setAttribute('day', this._convertForecast({ scale: this.scale, timeOfDayTemp: temp.day }))
+        dateItem.setAttribute('description', weather[0].description)
+        dateItem.setAttribute('forecast-date', this._getDayOfWeek({ dt, today }))
+        dateItem.setAttribute('icon', `https://openweathermap.org/img/w/${weather[0].icon}.png`)
+        dateItem.setAttribute('night', this._convertForecast({ scale: this.scale, timeOfDayTemp: temp.night }))
+        dateItem.setAttribute('scale', this.scale)
 
         dateContainer.appendChild(dateItem)
       })
     }
 
     return dateContainer
+  }
+
+  _convertForecast({ scale, timeOfDayTemp }) {
+    return `${Number.parseFloat(scale === 'F' ? convertTemperature(timeOfDayTemp, 'cToF') : timeOfDayTemp).toFixed(2)}`
+  }
+
+  _getDayOfWeek({ dt, today }) {
+    const timestamp = unixEpochToDate(dt)
+    const current = dateTime(timestamp).Y('-').m('-').d().getResults()
+
+    if (current === today) {
+      return 'Today:'
+    }
+
+    const weekDay = dateTime(timestamp)['date'].toLocaleString('en-US', { weekday: 'long'} )
+    const ddMM = dateTime(timestamp).m('/').d().getResults()
+
+    return `${weekDay} (${ddMM}):`
   }
 
   _getForecast({ appid, host, location }) {

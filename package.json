@@ -1,6 +1,6 @@
 {
   "name": "x-weather",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "A collection of web components implementing portions of the OpenWeatherMap API.",
   "files": [
     "lib",
