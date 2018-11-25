@@ -1,7 +1,11 @@
 {
   "name": "x-weather",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A collection of web components implementing portions of the OpenWeatherMap API.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kherrick/x-weather.git"
+  },
   "files": [
     "lib",
     "src"
