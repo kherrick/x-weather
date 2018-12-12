@@ -1,0 +1,11 @@
+{
+  "collectCoverageFrom": ["**/*.js"],
+  "coverageDirectory": "tests/jest/coverage",
+  "coveragePathIgnorePatterns": [
+    "node_modules",
+    "tests"
+  ],
+  "rootDir": "../..",
+  "testPathIgnorePatterns": [],
+  "verbose": true
+}

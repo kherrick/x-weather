@@ -2,3 +2,4 @@
 /dist/
 /node_modules
 /src/index.html
+/tests/jest/coverage

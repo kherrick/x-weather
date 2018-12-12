@@ -1,6 +1,6 @@
 {
   "name": "x-weather",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A collection of web components implementing portions of the OpenWeatherMap API.",
   "repository": {
     "type": "git",
@@ -56,7 +56,8 @@
     "start-no-polyfills-esm": "npm run build-no-polyfills-esm && npm run serve-no-polyfills-esm",
     "start-no-polyfills-iife": "npm run build-no-polyfills-iife && npm run serve-no-polyfills-iife",
     "start": "npm run start-ie11-iife",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx jest --config tests/jest/jest.json",
+    "test-coverage": "npm run test -- --coverage --coverageReporters html && printf '\ntests/jest/coverage/\n' && ls -al tests/jest/coverage"
   },
   "license": "AGPL-3.0",
   "devDependencies": {
@@ -72,6 +73,7 @@
     "eslint": "^4.12.0",
     "gh-pages": "^1.2.0",
     "glob": "^7.1.2",
+    "jest": "^23.6.0",
     "ncp": "^2.0.0",
     "rollup": "^0.59.4",
     "rollup-plugin-babel": "^3.0.4",
