@@ -1,6 +1,6 @@
 {
   "name": "x-weather",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A collection of web components implementing portions of the OpenWeatherMap API.",
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
     "internet explorer",
     "service worker"
   ],
-  "main": "dist/build-no-polyfills-esm/esm/main.js",
+  "main": "lib/build-no-polyfills-esm/esm/main.js",
   "scripts": {
     "bootstrap": "bin/npm_check",
     "browser-sync": "npx browser-sync start --server --serveStatic ./dist/ --files ./dist/** ./src/**",
