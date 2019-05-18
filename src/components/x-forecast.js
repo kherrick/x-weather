@@ -5,16 +5,18 @@ const template = `
   <style>
     :host {
       display: block;
+
+      --x-forecast-item-float: inherit;
+      --x-forecast-item-width: inherit;
     }
 
-    div[data-x-forecast] h3 {
-      padding-left: 0.5rem;
+    x-forecast-item {
+      float: var(--x-forecast-item-float);
+      width: var(--x-forecast-item-width);
     }
   </style>
 
   <div data-x-forecast>
-    <h3>Forecast</h3>
-
     <div data-x-forecast-date-container>
   <div/>
 `

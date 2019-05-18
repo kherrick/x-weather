@@ -1,27 +1,26 @@
-import { convertTemperature, dateTime, loadComponent, unixEpochToDate } from '../utilities.js'
+import { convertTemperature, dateTime, loadComponent, to12HourTime, unixEpochToDate } from '../utilities.js'
 // import current from '../../fixtures/current'
 
 const template = `
   <style>
     :host {
       display: block;
+
+      --icon-display: inherit
     }
 
-    div[data-x-current] h3 {
-      padding-left: 0.5rem;
+    [data-icon] {
+      display: var(--icon-display);
     }
 
     div[data-x-current] ul {
       list-style-type: none;
+
       padding: 0 0 1rem 1.5rem;
     }
 
     div[data-x-current] ul > li {
       padding: 0.5rem 0 0 0;
-    }
-
-    div[data-x-current] #time {
-      display: none;
     }
 
     div[data-x-current] #alternateScale {
@@ -31,10 +30,10 @@ const template = `
   </style>
 
   <div data-x-current>
-    <h3>Current</h3>
     <ul>
-      <li id="time"></li>
-      <li><img alt="" id="icon"></img></li>
+      <li><b id="time"></b></li>
+      <li data-icon><img alt="" id="icon"></img></li>
+      <li>Current:</li>
       <li>
         <span id="temperature"></span>°<span id="primaryScale"></span> / <span><a id="alternateScale"></a></span>
       </li>
@@ -154,11 +153,13 @@ const XCurrent = class extends HTMLElement {
   }
 
   set timestamp(timestamp) {
-    this.shadowRoot.querySelector('#time').textContent = dateTime(unixEpochToDate(timestamp))
-      .H(':')
-      .M(':')
-      .S()
-      .getResults()
+    this.shadowRoot.querySelector('#time').textContent = to12HourTime(
+      dateTime(unixEpochToDate(timestamp))
+        .H(':')
+        .M(':')
+        .S()
+        .getResults()
+    )
   }
 
   _getCurrentWeather({ appid, host, location }) {

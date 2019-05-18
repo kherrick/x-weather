@@ -4,14 +4,21 @@ const template = `
   <style>
     :host {
       display: block;
+
+      --icon-display: inherit
+    }
+
+    [data-icon] {
+      display: var(--icon-display);
     }
 
     ul[data-x-forecast-item] {
       list-style-type: none;
+
       padding: 0 0 1rem 1.5rem;
     }
 
-    ul[data-x-forecast] > li {
+    ul[data-x-forecast-item] > li {
       padding: 0.5rem 0 0 0;
     }
   </style>
@@ -20,7 +27,7 @@ const template = `
     <li>
       <u id="forecastDate"></u>
     </li>
-    <li>
+    <li data-icon>
       <img id="icon" />
     </li>
     <li>Day: <span id="day"></span>°<span data-scale></span></li>

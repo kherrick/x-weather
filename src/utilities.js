@@ -147,3 +147,46 @@ export const dateTime = date => ({
     return sep ? true: false
   }
 })
+
+// input "00:00:00" through "23:59:59"
+export const to12HourTime = timeStamp => {
+  const splitTimeStamp = String(timeStamp).split(':')
+
+  let hours = Number(splitTimeStamp[0])
+  let minutes = Number(splitTimeStamp[1]) || 0
+  let seconds = Number(splitTimeStamp[2]) || 0
+
+  if (hours < 0
+    || hours > 23
+    || minutes < 0
+    || minutes > 59
+    || seconds < 0
+    || seconds > 59
+  ) {
+    hours = minutes = seconds = 0
+  }
+
+  let timeString = '12'
+
+  if (hours > 0 && hours <= 12) {
+    timeString = String(hours)
+  }
+
+  if (hours > 12) {
+    timeString = String(hours % timeString)
+  }
+
+  timeString += minutes < 10
+    ? ':0' + minutes
+    : ':' + minutes
+
+  timeString += seconds < 10
+    ? ':0' + seconds
+    : ':' + seconds
+
+  timeString += hours >= 12
+    ? ' p.m.'
+    : ' a.m.'
+
+  return timeString
+}

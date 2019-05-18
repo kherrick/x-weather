@@ -9,8 +9,35 @@
 
 <body>
   <div id="app">
+    <style>
+      [data-icon] {
+        display: block;
+      }
+
+      x-weather {
+        --x-weather-location-margin: 1.5rem;
+
+        --icon-display: block;
+      }
+
+      x-current {
+        float: left;
+        width: 12rem;
+      }
+
+      x-forecast {
+        --x-forecast-item-float: left;
+        --x-forecast-item-width: 12rem;
+      }
+
+      x-forecast-item {
+        float: left;
+        width: 12rem;
+      }
+    </style>
+
     <x-weather
-      appid="NOT_A_REAL_APP_KEY"
+      appid="NOT_A_REAL_API_KEY"
       host="api.openweathermap.org"
       location="Phoenix, Arizona"
     >

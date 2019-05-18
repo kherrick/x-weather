@@ -4,12 +4,14 @@ const template = `
   <style>
     :host {
       display: block;
+
+      --x-weather-location-margin: inherit;
     }
 
     div[data-x-weather] #location {
       border: 0;
       font-style: italic;
-      margin: 0 0 0 2.5%;
+      margin: var(--x-weather-location-margin);
       padding: 0 2.5% 0 0;
       width: 95%;
     }

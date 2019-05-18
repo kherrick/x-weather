@@ -14,34 +14,34 @@ x-weather
 ### Add Internet Explorer 11 compatible polyfills
 
 ```html
-  <div id="ce-es5-shim">
-    <script>
-      if (!window.customElements) {
-        var ceShimContainer = document.querySelector('#ce-es5-shim')
+<div id="ce-es5-shim">
+  <script>
+    if (!window.customElements) {
+      var ceShimContainer = document.querySelector('#ce-es5-shim')
 
-        // This prevents custom-elements-es5-adapter.js from parsing or running.
-        ceShimContainer.parentElement.removeChild(ceShimContainer)
-      }
-    </script>
+      // This prevents custom-elements-es5-adapter.js from parsing or running.
+      ceShimContainer.parentElement.removeChild(ceShimContainer)
+    }
+  </script>
 
-    <!-- Required, due to a conflict between the polyfills, transpilation, and IE... -->
-    <script
-      charset="utf-8"
-      src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js"
-    ></script>
-  </div>
-
-  <!-- Web component polyfill (only loads what it needs) -->
+  <!-- Required, due to a conflict between the polyfills, transpilation, and IE... -->
   <script
     charset="utf-8"
-    src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs/webcomponents-lite.js"
+    src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js"
   ></script>
+</div>
+
+<!-- Web component polyfill (only loads what it needs) -->
+<script
+  charset="utf-8"
+  src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs/webcomponents-lite.js"
+></script>
 ```
 
 ### Load and register the web component in the CustomElementRegistry
 
 ```html
-  <script src="https://cdn.jsdelivr.net/npm/x-weather@latest/lib/build-ie11-iife/iife/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/x-weather@latest/lib/build-ie11-iife/iife/main.js"></script>
 ```
 
 ## Usage
@@ -49,14 +49,25 @@ x-weather
 * After installation and [signing up for an API key](https://home.openweathermap.org/users/sign_up), use the custom element:
 
 ```html
-  <x-weather
-    appid="NOT_A_REAL_API_KEY"
-    host="api.openweathermap.org"
-    location="Phoenix, Arizona"
-  >
-    <x-current scale="F"></x-current>
-    <x-forecast days="2" scale="F"></x-forecast>
-  </x-weather>
+<x-weather
+  appid="NOT_A_REAL_API_KEY"
+  host="api.openweathermap.org"
+  location="Phoenix, Arizona"
+>
+  <style>
+    x-current {
+      float: left;
+      width: 12rem;
+    }
+
+    x-forecast {
+      --x-forecast-item-float: left;
+      --x-forecast-item-width: 12rem;
+    }
+  </style>
+  <x-current scale="F"></x-current>
+  <x-forecast days="2" scale="F"></x-forecast>
+</x-weather>
 ```
 
 ## Additional information

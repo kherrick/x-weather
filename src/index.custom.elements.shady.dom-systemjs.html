@@ -9,6 +9,24 @@
 </head>
 <body>
   <div id="app">
+    <style>
+      x-weather {
+        --x-weather-location-margin: 1.5rem;
+
+        --icon-display: block;
+      }
+
+      x-current {
+        float: left;
+        width: 12rem;
+      }
+
+      x-forecast {
+        --x-forecast-item-float: left;
+        --x-forecast-item-width: 12rem;
+      }
+    </style>
+
     <x-weather
       appid="NOT_A_REAL_API_KEY"
       host="api.openweathermap.org"
@@ -18,26 +36,7 @@
       <x-forecast days="2" scale="F"></x-forecast>
     </x-weather>
   </div>
-  <style>
-    #app {
-      margin: 0 auto;
-    }
-    @media (min-width: 300px) {
-      #app {
-        width: 80%;
-      }
-    }
-    @media (min-width: 992px) {
-      #app {
-        width: 65%;
-      }
-    }
-    @media (min-width: 1200px) {
-      #app {
-        width: 50%;
-      }
-    }
-  </style>
+
   <script defer>
     SystemJS.import('./systemjs/main.js')
   </script>
