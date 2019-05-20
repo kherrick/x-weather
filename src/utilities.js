@@ -185,8 +185,8 @@ export const to12HourTime = timeStamp => {
     : ':' + seconds
 
   timeString += hours >= 12
-    ? ' p.m.'
-    : ' a.m.'
+    ? ' PM'
+    : ' AM'
 
   return timeString
 }

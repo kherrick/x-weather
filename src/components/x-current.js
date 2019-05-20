@@ -9,14 +9,18 @@ const template = `
       --icon-display: inherit
     }
 
-    [data-icon] {
+    [data-x-current-icon] {
       display: var(--icon-display);
+      float: left;
+      height: 7.5rem;
+      width: 7.5rem;
     }
 
     div[data-x-current] ul {
       list-style-type: none;
 
-      padding: 0 0 1rem 1.5rem;
+      margin-bottom: 0;
+      padding: 0 0 0 1.5rem;
     }
 
     div[data-x-current] ul > li {
@@ -32,12 +36,9 @@ const template = `
   <div data-x-current>
     <ul>
       <li><b id="time"></b></li>
-      <li data-icon><img alt="" id="icon"></img></li>
-      <li>Current:</li>
-      <li>
-        <span id="temperature"></span>°<span id="primaryScale"></span> / <span><a id="alternateScale"></a></span>
-      </li>
+      <li><span id="temperature"></span>°<span id="primaryScale"></span> / <span><a id="alternateScale"></a></span></li>
     </ul>
+    <img data-x-current-icon alt="" id="icon"></img>
   </div>
 `
 
@@ -208,7 +209,8 @@ const XCurrent = class extends HTMLElement {
   render({ iconAlt, iconSrc, temperature, timestamp }) {
     this.temperature = Number.parseFloat(temperature[this.scale === 'C' ? 'celsius' : 'fahrenheit']).toFixed(2)
     this.iconAlt = iconAlt
-    this.iconSrc = `https://openweathermap.org/img/w/${iconSrc}.png`
+    this.iconSrc = `https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/${iconSrc}.png`
+    // this.iconSrc = `https://openweathermap.org/img/w/${iconSrc}.png`
     this.timestamp = timestamp
   }
 }

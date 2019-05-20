@@ -139,12 +139,13 @@ const XForecast = class extends HTMLElement {
     const timestamp = unixEpochToDate(dt)
     const current = dateTime(timestamp).Y('-').m('-').d().getResults()
 
+    const ddMM = dateTime(timestamp).m('/').d().getResults()
+
     if (current === today) {
-      return 'Today:'
+      return `Today (${ddMM}):`
     }
 
     const weekDay = dateTime(timestamp)['date'].toLocaleString('en-US', { weekday: 'long'} )
-    const ddMM = dateTime(timestamp).m('/').d().getResults()
 
     return `${weekDay} (${ddMM}):`
   }

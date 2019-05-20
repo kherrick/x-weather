@@ -8,7 +8,7 @@ const template = `
       --icon-display: inherit
     }
 
-    [data-icon] {
+    [data-x-forecast-icon] {
       display: var(--icon-display);
     }
 
@@ -27,7 +27,7 @@ const template = `
     <li>
       <u id="forecastDate"></u>
     </li>
-    <li data-icon>
+    <li data-x-forecast-icon>
       <img id="icon" />
     </li>
     <li>Day: <span id="day"></span>°<span data-scale></span></li>
