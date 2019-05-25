@@ -10,10 +10,10 @@ const template = `
 
     div[data-x-weather] #location {
       border: 0;
+      display: block;
+      font-size: 1.5rem;
       font-style: italic;
-      margin: var(--x-weather-location-margin);
-      padding: 0 2.5% 0 0;
-      width: 95%;
+      margin: auto;
     }
   </style>
 
@@ -44,10 +44,10 @@ const XWeather = class extends HTMLElement {
 
     this._renderLocation(this.location)
 
-    const location = this.shadowRoot.querySelector('#location')
+    const locationInput = this.shadowRoot.querySelector('#location')
 
-    location.addEventListener('change', () => {
-      this.location = location.value
+    locationInput.addEventListener('change', () => {
+      this.location = locationInput.value
 
       this.xCurrent.refresh().then(currentWeather => {
         this.xCurrent.render(currentWeather)
@@ -108,7 +108,16 @@ const XWeather = class extends HTMLElement {
   }
 
   _renderLocation(location) {
-    this.shadowRoot.querySelector('#location').value = location
+    const locationInput = this.shadowRoot.querySelector('#location')
+
+    locationInput.value = location
+
+    const inputFontSize = window.getComputedStyle(
+      this.shadowRoot.querySelector('div[data-x-weather] #location')
+    ).fontSize.slice(0, -2)
+
+    // set locationInput width dynamically
+    locationInput.style.width = `${(locationInput.value.length * Number(inputFontSize)) / 2}px`
   }
 
   _upgradeProperty(prop) {

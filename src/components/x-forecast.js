@@ -8,17 +8,25 @@ const template = `
 
       --x-forecast-item-float: inherit;
       --x-forecast-item-width: inherit;
+      --x-forecast-item-margin: inherit;
+      --x-forecast-date-container-grid-template-columns: var(--x-forecast-date-container-grid-template-columns);
     }
 
     x-forecast-item {
       float: var(--x-forecast-item-float);
+      margin: var(--x-forecast-item-margin);
       width: var(--x-forecast-item-width);
+    }
+
+    [data-x-forecast-date-container] {
+      display: grid;
+      grid-template-columns: var(--x-forecast-date-container-grid-template-columns);
     }
   </style>
 
   <div data-x-forecast>
     <div data-x-forecast-date-container>
-  <div/>
+  </div>
 `
 
 const XForecast = class extends HTMLElement {
@@ -120,7 +128,10 @@ const XForecast = class extends HTMLElement {
         dateItem.setAttribute('day', this._convertForecast({ scale: this.scale, timeOfDayTemp: temp.day }))
         dateItem.setAttribute('description', weather[0].description)
         dateItem.setAttribute('forecast-date', this._getDayOfWeek({ dt, today }))
-        dateItem.setAttribute('icon', `https://openweathermap.org/img/w/${weather[0].icon}.png`)
+
+        dateItem.setAttribute('icon', `https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/${weather[0].icon}.png`)
+        // dateItem.setAttribute('icon', `https://openweathermap.org/img/w/${weather[0].icon}.png`)
+
         dateItem.setAttribute('night', this._convertForecast({ scale: this.scale, timeOfDayTemp: temp.night }))
         dateItem.setAttribute('scale', this.scale)
 

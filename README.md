@@ -76,3 +76,10 @@ x-weather
 * The package can be installed and imported by npm:
   - `npm i x-weather`
   - `import 'x-weather/lib/build-no-polyfills-esm/esm/main'`
+* Building basics:
+  - Site
+    * `NODE_ENV=production npm run build`
+  - Module
+    * `NODE_ENV=production npm run bundle-modules`
+  - Template
+    * `npm run build-templates API-KEY SERVICE-WORKER-URL`

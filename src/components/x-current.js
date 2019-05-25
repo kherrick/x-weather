@@ -10,35 +10,51 @@ const template = `
     }
 
     [data-x-current-icon] {
+      /* defaulted for ie11 */
+      display: block;
+
       display: var(--icon-display);
-      float: left;
       height: 7.5rem;
+      margin: auto;
       width: 7.5rem;
     }
 
     div[data-x-current] ul {
       list-style-type: none;
 
-      margin-bottom: 0;
-      padding: 0 0 0 1.5rem;
+      margin: auto;
+      padding: 0;
     }
 
     div[data-x-current] ul > li {
       padding: 0.5rem 0 0 0;
+
+      text-align: center;
     }
 
     div[data-x-current] #alternateScale {
       cursor: pointer;
       border-bottom: 1px dotted;
     }
+
+    #temperature {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    [data-x-current-dateTime] {
+      text-decoration: underline;
+    }
   </style>
 
   <div data-x-current>
     <ul>
-      <li><b id="time"></b></li>
+      <li><span id="time"></span></li>
       <li><span id="temperature"></span>°<span id="primaryScale"></span> / <span><a id="alternateScale"></a></span></li>
     </ul>
-    <img data-x-current-icon alt="" id="icon"></img>
+    <div>
+      <img data-x-current-icon alt="" id="icon"></img>
+    </div>
   </div>
 `
 
@@ -154,13 +170,17 @@ const XCurrent = class extends HTMLElement {
   }
 
   set timestamp(timestamp) {
-    this.shadowRoot.querySelector('#time').textContent = to12HourTime(
-      dateTime(unixEpochToDate(timestamp))
-        .H(':')
-        .M(':')
-        .S()
-        .getResults()
-    )
+    this.shadowRoot.querySelector('#time').innerHTML = `
+      <div data-x-current-dateTime>
+        ${to12HourTime(
+          dateTime(unixEpochToDate(timestamp))
+            .H(':')
+            .M(':')
+            .S()
+            .getResults()
+        )} (${dateTime(new Date).m('-').d().getResults()}):
+      </div>
+    `
   }
 
   _getCurrentWeather({ appid, host, location }) {

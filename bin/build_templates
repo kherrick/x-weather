@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+readonly PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.."
+
+cd "${PROJECT_ROOT}" || exit 1
+
+readonly PUBLIC_URL='NOT_THE_REAL_PUBLIC_URL'
+readonly API_KEY='NOT_A_REAL_API_KEY'
+
+if [[ -z "$1" ]]; then
+  printf 'You must supply an "api key" as the first argument.\n\n'
+
+  exit 1
+fi
+
+if [[ -z "$2" ]]; then
+  printf 'You must supply a "public url", e.g. https://example.com/ as the second argument.\n\n'
+
+  exit 1
+fi
+
+# replace in dist folder
+find dist -iname "*index.html*" -exec sed -i.bak "s#${API_KEY}#$1#g" {} \;
+find dist -iname "*index.html*" -exec sed -i.bak "s#${PUBLIC_URL}#$2#g" {} \;
+find dist -iname "*.bak" -exec rm -f {} \;
+
+# replace in lib folder
+find lib -iname "*index.html*" -exec sed -i.bak "s#${API_KEY}#$1#g" {} \;
+find lib -iname "*index.html*" -exec sed -i.bak "s#${PUBLIC_URL}#$2#g" {} \;
+find lib -iname "*.bak" -exec rm -f {} \;

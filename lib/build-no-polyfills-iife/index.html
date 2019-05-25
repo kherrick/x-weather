@@ -3,10 +3,23 @@
 <head>
   <meta charset="utf-8">
   <title>XWeather</title>
+  <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+  <style>
+    html, body, #app {
+      height: 100%;
+      margin: 0px;
+      width: 100%;
+    }
+  </style>
 </head>
+
 <body>
   <div id="app">
     <style>
+      [data-icon] {
+        display: block;
+      }
+
       x-weather {
         --x-weather-location-margin: 1.5rem;
 
@@ -14,13 +27,19 @@
       }
 
       x-current {
-        float: left;
         width: 12rem;
+        margin: auto;
       }
 
       x-forecast {
-        --x-forecast-item-float: left;
         --x-forecast-item-width: 12rem;
+        --x-forecast-item-margin: auto;
+        --x-forecast-date-container-grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+      }
+
+      x-forecast-item {
+        float: left;
+        width: 12rem;
       }
     </style>
 
@@ -30,7 +49,7 @@
       location="Phoenix, Arizona"
     >
       <x-current scale="F"></x-current>
-      <x-forecast days="2" scale="F"></x-forecast>
+      <x-forecast days="14" scale="F"></x-forecast>
     </x-weather>
   </div>
 
@@ -40,5 +59,10 @@
     charset="utf-8"
     src="./iife/main.js"
   ></script>
+  <script type="module">
+    import registerServiceWorker from './registerServiceWorker.js'
+
+    registerServiceWorker('NOT_THE_REAL_PUBLIC_URL')
+  </script>
 </body>
 </html>
