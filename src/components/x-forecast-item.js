@@ -44,7 +44,7 @@ const template = `
     <li>
       <u id="forecastDate"></u>
     </li>
-    <li><span id="day"></span>°<span id="nightScale" data-scale></span>&nbsp;<span id="night"></span>°<span id="nightScale" data-scale></span></li>
+    <li><span id="day"></span>°<span id="dayScale" data-scale></span>&nbsp;<span id="night"></span>°<span id="nightScale" data-scale></span></li>
     <li data-x-forecast-icon>
       <img id="icon" />
     </li>
