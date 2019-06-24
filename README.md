@@ -6,7 +6,7 @@ x-weather
   * A collection of [web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) implementing portions of the [OpenWeatherMap API](https://openweathermap.org/api).
 
     <a href="https://kherrick.github.io/x-weather/">
-      <img src="https://raw.githubusercontent.com/kherrick/x-weather/master/assets/x-weather-screenshot.png" />
+      <img src="https://raw.githubusercontent.com/kherrick/x-weather/master/assets/x-weather-screenshot.png" width="75%" />
     </a>
 
 ## Installation
