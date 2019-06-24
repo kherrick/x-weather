@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="refresh" content="1800" >
   <title>XWeather</title>
   <link rel="icon" href="./favicon.ico" type="image/x-icon" />
   <style>
@@ -12,6 +12,14 @@
       width: 100%;
     }
   </style>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      // refresh every half hour
+      window.setTimeout(() => {
+        window.location.reload(true)
+      }, 30 * 60 * 1000)
+    })
+  </script>
 </head>
 
 <body>
