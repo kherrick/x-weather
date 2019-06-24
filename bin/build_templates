@@ -20,11 +20,15 @@ if [[ -z "$2" ]]; then
 fi
 
 # replace in dist folder
-find dist -iname "*index.html*" -exec sed -i.bak "s#${API_KEY}#$1#g" {} \;
-find dist -iname "*index.html*" -exec sed -i.bak "s#${PUBLIC_URL}#$2#g" {} \;
-find dist -iname "*.bak" -exec rm -f {} \;
+if [[ -d dist ]]; then
+  find dist -iname "*index.html*" -exec sed -i.bak "s#${API_KEY}#$1#g" {} \;
+  find dist -iname "*index.html*" -exec sed -i.bak "s#${PUBLIC_URL}#$2#g" {} \;
+  find dist -iname "*.bak" -exec rm -f {} \;
+fi
 
 # replace in lib folder
-find lib -iname "*index.html*" -exec sed -i.bak "s#${API_KEY}#$1#g" {} \;
-find lib -iname "*index.html*" -exec sed -i.bak "s#${PUBLIC_URL}#$2#g" {} \;
-find lib -iname "*.bak" -exec rm -f {} \;
+if [[ -d lib ]]; then
+  find lib -iname "*index.html*" -exec sed -i.bak "s#${API_KEY}#$1#g" {} \;
+  find lib -iname "*index.html*" -exec sed -i.bak "s#${PUBLIC_URL}#$2#g" {} \;
+  find lib -iname "*.bak" -exec rm -f {} \;
+fi
