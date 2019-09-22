@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="1800" >
+  <meta name="theme-color" content="#000000">
+
+  <base href="/">
+
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+  <link href="./src/globalStyles.css" rel="stylesheet">
+  <title>XWeather</title>
+  <script>
+    // HACK: The Redux package assumes `process` exists - mock it here before the module is loaded.
+    // ----: also useful for live development where node_env doesn't exist
+    window.process = {
+      env: {
+        NODE_ENV: 'development'
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script type="module">
+    import { html, render } from 'lit-html'
+
+    render(
+      html`
+        <x-weather
+          appid="NOT_A_REAL_APP_ID"
+          host="api.openweathermap.org"
+          location="Detroit, Michigan"
+        >
+          <x-current primaryscale="f"></x-current>
+          <x-forecast days="14" primaryscale="f"></x-forecast>
+        </x-weather>
+      `,
+      document.querySelector('#app')
+    )
+  </script>
+  <script type="module">
+    import { defineCustomElements } from './src/defineCustomElements.js'
+
+    defineCustomElements()
+  </script>
+</body>
+</html>

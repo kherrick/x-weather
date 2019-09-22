@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="1800" >
+  <meta name="theme-color" content="#000000">
+
+  <base href="/x-weather/">
+
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+  <link href="./src/globalStyles.css" rel="stylesheet">
+  <title>XWeather</title>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      // refresh every half hour
+      window.setTimeout(() => {
+        window.location.reload(true)
+      }, 30 * 60 * 1000)
+    })
+  </script>
+</head>
+<body>
+  <x-weather
+    appid="NOT_A_REAL_APP_ID"
+    host="api.openweathermap.org"
+    location="Detroit, Michigan"
+  >
+    <x-current primaryscale="f"></x-current>
+    <x-forecast days="14" primaryscale="f"></x-forecast>
+  </x-weather>
+  <script type="module">
+    import { defineCustomElements } from './dist/esm/defineCustomElements.js'
+
+    defineCustomElements()
+  </script>
+  <script type="module">
+    import registerServiceWorker from './service-worker/registerServiceWorker.js'
+
+    registerServiceWorker(document.querySelector('base').href.slice(0, -1))
+  </script>
+</body>
+</html>
