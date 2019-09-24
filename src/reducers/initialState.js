@@ -1,5 +1,9 @@
 export default {
   weather: {
+    preferences: {
+      primaryScaleCurrent: 'f',
+      primaryScaleForecast: 'f'
+    },
     current: {
       iconAlt: 'clear sky',
       iconSrc: '01d',

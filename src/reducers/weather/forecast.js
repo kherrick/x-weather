@@ -9,12 +9,6 @@ export default createReducer(
         ...state,
         ...payload
       }
-    },
-    [SWAP_PRIMARY_SCALE_FORECAST](state, { payload }) {
-      return {
-        ...state,
-        primaryScale: payload
-      }
     }
   }
 )
