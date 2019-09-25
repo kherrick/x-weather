@@ -1,9 +1,11 @@
+import { createStore, compose, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 
-import { createStore, compose, applyMiddleware } from 'redux'
-import { rootReducer } from '../reducers/root'
+import { loadState, saveState } from '../utilities'
+import throttle from 'lodash-es/throttle'
 
 import initialState from '../reducers/initialState'
+import { rootReducer } from '../reducers/root'
 
 import { logger } from './middleware'
 
@@ -13,4 +15,15 @@ const configureStore =
     ? initialState => createStore(rootReducer, initialState, compose(applyMiddleware(logger, thunk)))
     : initialState => createStore(rootReducer, initialState, compose(applyMiddleware(thunk)))
 
-export const store = configureStore(initialState)
+const persistedState = loadState()
+const store = configureStore({ ...initialState, ...persistedState })
+
+store.subscribe(
+  throttle(() => {
+    const state = store.getState()
+
+    saveState(state)
+  }, 1000)
+)
+
+export { store }

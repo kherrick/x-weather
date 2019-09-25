@@ -1,6 +1,6 @@
 {
   "name": "x-weather",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "A collection of web components implementing portions of the OpenWeatherMap API.",
   "author": "x-weather",
   "main": "dist/umd/module.js",
@@ -30,6 +30,7 @@
     "date-fns": "^2.2.1",
     "lit-element": "^2.2.1",
     "lit-html": "^1.1.2",
+    "lodash-es": "^4.17.15",
     "pwa-helpers": "^0.9.1",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
