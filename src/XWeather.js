@@ -1,21 +1,18 @@
 import { html, css, LitElement } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin'
 import { store } from './store/configureStore'
-import { getCurrentWeather, getForecastWeather } from './dispatchers/dispatchers'
+
+import { getCurrentWeather, getForecastWeather, updateLocation } from './dispatchers/dispatchers'
 
 import './containers/XCurrent'
 import './containers/XForecast'
+import './containers/XLocation'
 
 const XWeather = class extends connect(store)(LitElement) {
   static get styles() {
     return css`
       :host {
         display: block;
-      }
-
-      header {
-        font-size: var(--x-weather-header-font-size, 1.5rem);
-        text-align: center;
       }
     `
   }
@@ -24,7 +21,9 @@ const XWeather = class extends connect(store)(LitElement) {
     return {
       appid: { type: String, reflect: false },
       host: { type: String, reflect: true },
-      location: { type: String, reflect: true }
+      latitude: { type: Number, reflect: true },
+      longitude: { type: Number, reflect: true },
+      placename: { type: String, reflect: true }
     }
   }
 
@@ -33,24 +32,62 @@ const XWeather = class extends connect(store)(LitElement) {
 
     this.appid = undefined
     this.host = 'api.openweathermap.org'
-    this.location = 'Detroit, Michigan'
+    this.latitude = undefined
+    this.longitude = undefined
+    this.placename = undefined
+  }
+
+  _hasRequiredAttributes() {
+    return this.appid && this.host && this.latitude && this.longitude && this.placename
+  }
+
+  firstUpdated() {
+    if (this._hasRequiredAttributes()) {
+      updateLocation({
+        latitude: this.latitude,
+        longitude: this.longitude,
+        placename: this.placename
+      })
+    }
+  }
+
+  stateChanged({ weather }) {
+    const weatherPreferences = weather.preferences
+
+    if (this.placename !== weatherPreferences.location.placename) {
+      this.latitude = weatherPreferences.location.latitude || this.latitude
+      this.longitude = weatherPreferences.location.longitude || this.longitude
+      this.placename = weatherPreferences.location.placename || this.placename
+
+      getCurrentWeather({
+        appid: this.appid,
+        host: this.host,
+        latitude: this.latitude,
+        longitude: this.longitude,
+        placename: this.placename
+      })
+
+      getForecastWeather({
+        appid: this.appid,
+        host: this.host,
+        latitude: this.latitude,
+        longitude: this.longitude,
+        placename: this.placename
+      })
+    }
   }
 
   render() {
-    const hasRequiredAttributes = this.appid && this.host && this.location
-
-    if (hasRequiredAttributes) {
-      getCurrentWeather({ appid: this.appid, host: this.host, location: this.location })
-      getForecastWeather({ appid: this.appid, host: this.host, location: this.location })
-    }
-
-    return hasRequiredAttributes
+    return this._hasRequiredAttributes()
       ? html`
-          <header><strong>${this.location}</strong></header>
+          <x-location></x-location>
           <slot></slot>
         `
       : html`
-          <div>Please make sure required attributes (appid, host, and location) are set on &lt;x-weather&gt;.</div>
+          <div>
+            Please make sure required attributes (appid, host, latitude, longitude, placename) are set on
+            &lt;x-weather&gt;.
+          </div>
         `
   }
 }

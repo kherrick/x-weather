@@ -1,3 +1,3 @@
-import { UPDATE_FORECAST_WEATHER } from '../../types'
+import { FORECAST_WEATHER_UPDATE } from '../../types'
 
-export const updateForecastWeather = ({ json }) => ({ type: UPDATE_FORECAST_WEATHER, payload: JSON.parse(json) })
+export const updateForecastWeather = ({ json }) => ({ type: FORECAST_WEATHER_UPDATE, payload: JSON.parse(json) })

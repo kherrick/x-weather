@@ -1,16 +1,30 @@
 import { createReducer } from '../utilities'
-import { SWAP_PRIMARY_SCALE_CURRENT, SWAP_PRIMARY_SCALE_FORECAST } from '../../actions/types'
+import {
+  CURRENT_WEATHER_UPDATE,
+  LOCATION_UPDATE,
+  PRIMARY_SCALE_CURRENT_SWAP,
+  PRIMARY_SCALE_FORECAST_SWAP
+} from '../../actions/types'
 
 export default createReducer(
   {},
   {
-    [SWAP_PRIMARY_SCALE_FORECAST](state, { payload }) {
+    [LOCATION_UPDATE](state, { payload }) {
+      return {
+        ...state,
+        location: {
+          ...state.location,
+          ...payload
+        }
+      }
+    },
+    [PRIMARY_SCALE_FORECAST_SWAP](state, { payload }) {
       return {
         ...state,
         primaryScaleForecast: payload
       }
     },
-    [SWAP_PRIMARY_SCALE_CURRENT](state, { payload }) {
+    [PRIMARY_SCALE_CURRENT_SWAP](state, { payload }) {
       return {
         ...state,
         primaryScaleCurrent: payload

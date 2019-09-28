@@ -27,7 +27,9 @@ Render:
 </script>
 <x-weather
   appid="NOT_A_REAL_APP_ID"
-  location="Detroit, Michigan"
+  latitude="33.43"
+  longitude="-112.11"
+  placename="Phoenix, Arizona"
 >
   <x-current primaryscale="f"></x-current>
   <x-forecast days="14" primaryscale="f"></x-forecast>
@@ -48,7 +50,9 @@ Render:
 </script>
 <x-weather
   appid="NOT_A_REAL_APP_ID"
-  location="Detroit, Michigan"
+  latitude="33.43"
+  longitude="-112.11"
+  placename="Phoenix, Arizona"
 >
   <x-current primaryscale="f"></x-current>
   <x-forecast days="14" primaryscale="f"></x-forecast>

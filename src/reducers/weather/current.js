@@ -1,10 +1,10 @@
 import { createReducer } from '../utilities'
-import { SWAP_PRIMARY_SCALE_CURRENT, UPDATE_CURRENT_WEATHER } from '../../actions/types'
+import { CURRENT_WEATHER_UPDATE } from '../../actions/types'
 
 export default createReducer(
   {},
   {
-    [UPDATE_CURRENT_WEATHER](state, { payload }) {
+    [CURRENT_WEATHER_UPDATE](state, { payload }) {
       return {
         ...state,
         ...payload

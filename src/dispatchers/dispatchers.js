@@ -5,15 +5,16 @@ import { getForecastWeather as getForecastWeatherCreator } from '../actions/crea
 
 import {
   swapPrimaryScaleCurrent as swapPrimaryScaleCurrentCreator,
-  swapPrimaryScaleForecast as swapPrimaryScaleForecastCreator
+  swapPrimaryScaleForecast as swapPrimaryScaleForecastCreator,
+  updateLocation as updateLocationCreator
 } from '../actions/creators'
 
-export const getCurrentWeather = ({ appid, host, location }) => {
-  store.dispatch(getCurrentWeatherCreator({ appid, host, location }))
+export const getCurrentWeather = ({ appid, host, latitude, longitude, placename }) => {
+  store.dispatch(getCurrentWeatherCreator({ appid, host, latitude, longitude, placename }))
 }
 
-export const getForecastWeather = ({ appid, host, location }) => {
-  store.dispatch(getForecastWeatherCreator({ appid, host, location }))
+export const getForecastWeather = ({ appid, host, latitude, longitude, placename }) => {
+  store.dispatch(getForecastWeatherCreator({ appid, host, latitude, longitude, placename }))
 }
 
 export const swapPrimaryScaleCurrent = primaryScale => {
@@ -22,4 +23,8 @@ export const swapPrimaryScaleCurrent = primaryScale => {
 
 export const swapPrimaryScaleForecast = primaryScale => {
   store.dispatch(swapPrimaryScaleForecastCreator(primaryScale))
+}
+
+export const updateLocation = location => {
+  store.dispatch(updateLocationCreator(location))
 }

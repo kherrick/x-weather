@@ -1,8 +1,12 @@
 import { convertTemperature } from '../../../../utilities'
 import { updateCurrentWeather } from '../updateCurrentWeather'
 
-const _serviceHandler = ({ appid, host, location }) => {
-  const url = `https://${host}/data/2.5/weather?q=${location}&appid=${appid}` // eslint-disable-line no-unused-vars
+const _serviceHandler = ({ appid, host, latitude, longitude, placename }) => {
+  // http://forecast.weather.gov/MapClick.php?lat=${latitude}&lon=${longitude}
+
+  // `https://${host}/data/2.5/weather?id=${stationId}&appid=${appid}`
+  // `https://${host}/data/2.5/weather?q=${location}&appid=${appid}`
+  const url = `https://${host}/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${appid}`
 
   // return current
   return fetch(url, {
@@ -14,18 +18,21 @@ const _serviceHandler = ({ appid, host, location }) => {
   })
 }
 
-const _getCurrentWeather = ({ appid, host, location }) => {
-  if (appid && host && location) {
-    return _serviceHandler({ appid, host, location }).then(result => {
+const _getCurrentWeather = ({ appid, host, latitude, longitude, placename }) => {
+  if (appid && host && latitude && longitude && placename) {
+    return _serviceHandler({ appid, host, latitude, longitude, placename }).then(result => {
       if (!result) {
         throw new Error(
-          `failed to get result from the current weather service using: appid: ${appid}, host: ${host}, location: ${location}`
+          `failed to get result from the current weather service using: appid: ${appid}, host: ${host}, latitude: ${latitude}, longitude: ${longitude}, placename: ${placename}`
         )
       }
 
-      const { coord, weather, base, main, visibility, wind, clouds, dt, sys, id, name, cod } = result // eslint-disable-line no-unused-vars
+      const { coord, weather, base, main, visibility, wind, clouds, dt, sys, timezone, id, name, cod } = result // eslint-disable-line no-unused-vars
 
       return JSON.stringify({
+        sunrise: sys.sunrise,
+        sunset: sys.sunset,
+        timezone,
         iconAlt: weather[0].description,
         iconSrc: weather[0].icon,
         temperature: {
@@ -39,9 +46,9 @@ const _getCurrentWeather = ({ appid, host, location }) => {
   }
 }
 
-const getCurrentWeather = ({ appid, host, location }) => {
+const getCurrentWeather = ({ appid, host, latitude, longitude, placename }) => {
   return dispatch => {
-    return _getCurrentWeather({ appid, host, location }).then(json => {
+    return _getCurrentWeather({ appid, host, latitude, longitude, placename }).then(json => {
       if (json.length > 0) {
         dispatch(updateCurrentWeather({ json }))
       }

@@ -1,8 +1,13 @@
 import { convertTemperature } from '../../../../utilities'
 import { updateForecastWeather } from '../updateForecastWeather'
 
-const _serviceHandler = ({ appid, host, location }) => {
-  const url = `https://${host}/data/2.5/forecast/daily?q=${location}&mode=json&units=metric&cnt=14&appid=${appid}` // eslint-disable-line no-unused-vars
+const _serviceHandler = ({ appid, host, latitude, longitude, placename }) => {
+  // http://forecast.weather.gov/MapClick.php?lat=${latitude}&lon=${longitude}
+
+  // `https://${host}/data/2.5/forecast/daily?id=${stationId}&mode=json&units=metric&cnt=14&appid=${appid}`
+  // `https://${host}/data/2.5/forecast/daily?q=${location}&mode=json&units=metric&cnt=14&appid=${appid}`
+
+  const url = `https://${host}/data/2.5/forecast/daily?lat=${latitude}&lon=${longitude}&mode=json&units=metric&cnt=14&appid=${appid}`
 
   // return forecast
   return fetch(url, {
@@ -14,12 +19,12 @@ const _serviceHandler = ({ appid, host, location }) => {
   })
 }
 
-const _getForecastWeather = ({ appid, host, location }) => {
-  if (appid && host && location) {
-    return _serviceHandler({ appid, host, location }).then(result => {
+const _getForecastWeather = ({ appid, host, latitude, longitude, placename }) => {
+  if (appid && host && latitude && longitude && placename) {
+    return _serviceHandler({ appid, host, latitude, longitude, placename }).then(result => {
       if (!result) {
         throw new Error(
-          `failed to get result from the forecast weather service using: appid: ${appid}, host: ${host}, location: ${location}`
+          `failed to get result from the forecast weather service using: appid: ${appid}, host: ${host}, latitude: ${latitude}, longitude: ${longitude}, placename: ${placename}`
         )
       }
 
@@ -30,9 +35,9 @@ const _getForecastWeather = ({ appid, host, location }) => {
   }
 }
 
-const getForecastWeather = ({ appid, host, location }) => {
+const getForecastWeather = ({ appid, host, latitude, longitude, placename }) => {
   return dispatch => {
-    return _getForecastWeather({ appid, host, location }).then(json => {
+    return _getForecastWeather({ appid, host, latitude, longitude, placename }).then(json => {
       if (json.length > 0) {
         dispatch(updateForecastWeather({ json }))
       }
