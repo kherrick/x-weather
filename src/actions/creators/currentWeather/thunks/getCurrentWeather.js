@@ -46,8 +46,10 @@ const _getCurrentWeather = ({ appid, host, latitude, longitude, placename }) => 
   }
 }
 
-const getCurrentWeather = ({ appid, host, latitude, longitude, placename }) => {
-  return dispatch => {
+const getCurrentWeather = ({ appid, host }) => {
+  return (dispatch, getState) => {
+    const { latitude, longitude, placename } = getState().weather.preferences.location
+
     return _getCurrentWeather({ appid, host, latitude, longitude, placename }).then(json => {
       if (json.length > 0) {
         dispatch(updateCurrentWeather({ json }))

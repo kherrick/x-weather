@@ -8,7 +8,7 @@ import './containers/XCurrent'
 import './containers/XForecast'
 import './containers/XLocation'
 
-const XWeather = class extends connect(store)(LitElement) {
+const XWeather = class extends LitElement {
   static get styles() {
     return css`
       :host {
@@ -48,31 +48,15 @@ const XWeather = class extends connect(store)(LitElement) {
         longitude: this.longitude,
         placename: this.placename
       })
-    }
-  }
-
-  stateChanged({ weather }) {
-    const weatherPreferences = weather.preferences
-
-    if (this.placename !== weatherPreferences.location.placename) {
-      this.latitude = weatherPreferences.location.latitude || this.latitude
-      this.longitude = weatherPreferences.location.longitude || this.longitude
-      this.placename = weatherPreferences.location.placename || this.placename
 
       getCurrentWeather({
         appid: this.appid,
-        host: this.host,
-        latitude: this.latitude,
-        longitude: this.longitude,
-        placename: this.placename
+        host: this.host
       })
 
       getForecastWeather({
         appid: this.appid,
-        host: this.host,
-        latitude: this.latitude,
-        longitude: this.longitude,
-        placename: this.placename
+        host: this.host
       })
     }
   }
