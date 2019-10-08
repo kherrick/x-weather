@@ -1,411 +1,209 @@
 export default {
   weather: {
-    preferences: {
-      primaryScaleCurrent: 'f',
-      primaryScaleForecast: 'f',
-      location: {},
-      locations: [
-        {
-          latitude: 42.35,
-          longitude: -83.06,
-          placename: 'Detroit, Michigan'
-        },
-        {
-          latitude: 33.43,
-          longitude: -112.11,
-          placename: 'Phoenix, Arizona'
-        },
-        {
-          latitude: 42.57,
-          longitude: -84.42,
-          placename: 'Mason, Michigan'
-        }
-      ]
-    },
     current: {
-      iconAlt: 'light rain',
-      iconSrc: '10d',
-      temperature: {
-        kelvin: 274.57,
-        celsius: 10.420000000000016,
-        fahrenheit: 50.756000000000014438
-      },
-      timestamp: 1569778758,
-      sunrise: 1569764743,
-      sunset: 1569807258,
+      iconAlt: 'shower rain',
+      iconSrc: '09d',
+      temperature: { kelvin: 283.4, celsius: 10.25, fahrenheit: 50.45 },
+      timestamp: 1570576970,
+      sunrise: 1570543089,
+      sunset: 1570583768,
       timezone: -25200
     },
     forecast: {
       '0': {
-        dt: 1569783600,
-        sunrise: 1569764743,
-        sunset: 1569807258,
-        temp: {
-          day: 1.75,
-          min: 0.55,
-          max: 3.52,
-          night: 0.55,
-          eve: 3.52,
-          morn: 1.42
-        },
-        pressure: 1016.55,
-        humidity: 76,
-        weather: [
-          {
-            id: 601,
-            main: 'Snow',
-            description: 'snow',
-            icon: '13d'
-          }
-        ],
-        speed: 6.8,
-        deg: 48,
-        clouds: 100,
-        snow: 2
+        dt: 1570518000,
+        sunrise: 1570543089,
+        sunset: 1570583768,
+        temp: { day: 10.25, min: 10.25, max: 10.25, night: 10.25, eve: 10.25, morn: 10.25 },
+        pressure: 1007,
+        humidity: 34,
+        weather: [{ id: 801, main: 'Clouds', description: 'few clouds', icon: '02d' }],
+        speed: 7.062,
+        deg: 253,
+        clouds: 17
       },
       '1': {
-        dt: 1569870000,
-        sunrise: 1569851224,
-        sunset: 1569893535,
-        temp: {
-          day: 5.23,
-          min: 0.15,
-          max: 8,
-          night: 0.15,
-          eve: 7.22,
-          morn: 0.47
-        },
-        pressure: 1020.5,
-        humidity: 57,
-        weather: [
-          {
-            id: 804,
-            main: 'Clouds',
-            description: 'overcast clouds',
-            icon: '04d'
-          }
-        ],
-        speed: 2.23,
-        deg: 88,
-        clouds: 100
+        dt: 1570604400,
+        sunrise: 1570629574,
+        sunset: 1570670049,
+        temp: { day: 3.16, min: -1.65, max: 8.94, night: 2.75, eve: -1.65, morn: 8.94 },
+        pressure: 1014,
+        humidity: 87,
+        weather: [{ id: 600, main: 'Snow', description: 'light snow', icon: '13d' }],
+        speed: 1.939,
+        deg: 266,
+        clouds: 100,
+        rain: 1.69,
+        snow: 1.31
       },
       '2': {
-        dt: 1569956400,
-        sunrise: 1569937706,
-        sunset: 1569979813,
-        temp: {
-          day: 7.07,
-          min: -2.22,
-          max: 9.55,
-          night: 4.16,
-          eve: 8.22,
-          morn: -2.22
-        },
-        pressure: 1023.28,
-        humidity: 56,
-        weather: [
-          {
-            id: 800,
-            main: 'Clear',
-            description: 'sky is clear',
-            icon: '01d'
-          }
-        ],
-        speed: 0.71,
-        deg: 198,
+        dt: 1570690800,
+        sunrise: 1570716059,
+        sunset: 1570756331,
+        temp: { day: -0.04, min: -2.25, max: 5.63, night: 4.9, eve: -2.25, morn: 5.63 },
+        pressure: 1032,
+        humidity: 41,
+        weather: [{ id: 800, main: 'Clear', description: 'sky is clear', icon: '01n' }],
+        speed: 0.785,
+        deg: 159,
         clouds: 0
       },
       '3': {
-        dt: 1570042800,
-        sunrise: 1570024189,
-        sunset: 1570066091,
-        temp: {
-          day: 9.15,
-          min: 2.77,
-          max: 11.51,
-          night: 3.78,
-          eve: 11.51,
-          morn: 2.77
-        },
-        pressure: 1022.68,
-        humidity: 51,
-        weather: [
-          {
-            id: 803,
-            main: 'Clouds',
-            description: 'broken clouds',
-            icon: '04d'
-          }
-        ],
-        speed: 1.67,
-        deg: 163,
-        clouds: 54
+        dt: 1570777200,
+        sunrise: 1570802544,
+        sunset: 1570842614,
+        temp: { day: 1.09, min: -1.13, max: 6.52, night: 5.33, eve: -1.13, morn: 6.52 },
+        pressure: 1031,
+        humidity: 50,
+        weather: [{ id: 800, main: 'Clear', description: 'sky is clear', icon: '01n' }],
+        speed: 1.571,
+        deg: 86,
+        clouds: 0
       },
       '4': {
-        dt: 1570129200,
-        sunrise: 1570110671,
-        sunset: 1570152369,
-        temp: {
-          day: 9.85,
-          min: 2.85,
-          max: 12.37,
-          night: 3.39,
-          eve: 12.37,
-          morn: 2.85
-        },
-        pressure: 1017.87,
-        humidity: 64,
-        weather: [
-          {
-            id: 500,
-            main: 'Rain',
-            description: 'light rain',
-            icon: '10d'
-          }
-        ],
-        speed: 1.42,
-        deg: 94,
-        clouds: 84,
-        rain: 0.38
+        dt: 1570863600,
+        sunrise: 1570889029,
+        sunset: 1570928897,
+        temp: { day: 3.67, min: 0.82, max: 9.36, night: 7.98, eve: 0.82, morn: 9.36 },
+        pressure: 1022,
+        humidity: 52,
+        weather: [{ id: 801, main: 'Clouds', description: 'few clouds', icon: '02n' }],
+        speed: 1.647,
+        deg: 59,
+        clouds: 25
       },
       '5': {
-        dt: 1570215600,
-        sunrise: 1570197154,
-        sunset: 1570238648,
-        temp: {
-          day: 9.18,
-          min: 0.59,
-          max: 13.46,
-          night: 3.75,
-          eve: 12.47,
-          morn: 0.59
-        },
-        pressure: 1020.45,
-        humidity: 52,
-        weather: [
-          {
-            id: 800,
-            main: 'Clear',
-            description: 'sky is clear',
-            icon: '01d'
-          }
-        ],
-        speed: 2.01,
-        deg: 183,
-        clouds: 0
+        dt: 1570950000,
+        sunrise: 1570975515,
+        sunset: 1571015182,
+        temp: { day: 6.19, min: 5.06, max: 10.74, night: 5.47, eve: 5.06, morn: 10.74 },
+        pressure: 1013,
+        humidity: 54,
+        weather: [{ id: 500, main: 'Rain', description: 'light rain', icon: '10d' }],
+        speed: 0.761,
+        deg: 220,
+        clouds: 100,
+        rain: 0.25
       },
       '6': {
-        dt: 1570302000,
-        sunrise: 1570283638,
-        sunset: 1570324927,
-        temp: {
-          day: 10.16,
-          min: 2.76,
-          max: 12.68,
-          night: 5.26,
-          eve: 12.21,
-          morn: 2.76
-        },
-        pressure: 1019.09,
-        humidity: 59,
-        weather: [
-          {
-            id: 500,
-            main: 'Rain',
-            description: 'light rain',
-            icon: '10d'
-          }
-        ],
-        speed: 4.34,
-        deg: 190,
-        clouds: 100,
-        rain: 1.81
+        dt: 1571036400,
+        sunrise: 1571062001,
+        sunset: 1571101467,
+        temp: { day: 6.06, min: 4.65, max: 10.79, night: 10.79, eve: 4.65, morn: 8.15 },
+        pressure: 1015,
+        humidity: 68,
+        weather: [{ id: 804, main: 'Clouds', description: 'overcast clouds', icon: '04n' }],
+        speed: 1.532,
+        deg: 178,
+        clouds: 87
       },
       '7': {
-        dt: 1570388400,
-        sunrise: 1570370121,
-        sunset: 1570411207,
-        temp: {
-          day: 8.25,
-          min: 0.65,
-          max: 12.13,
-          night: 3.09,
-          eve: 12.13,
-          morn: 0.65
-        },
-        pressure: 1024.27,
-        humidity: 60,
-        weather: [
-          {
-            id: 800,
-            main: 'Clear',
-            description: 'sky is clear',
-            icon: '01d'
-          }
-        ],
-        speed: 1.56,
-        deg: 156,
-        clouds: 0
-      },
-      '8': {
-        dt: 1570474800,
-        sunrise: 1570456605,
-        sunset: 1570497487,
-        temp: {
-          day: 7.02,
-          min: 0.05,
-          max: 11.35,
-          night: 3.7,
-          eve: 10.68,
-          morn: 0.05
-        },
-        pressure: 1009.38,
-        humidity: 45,
-        weather: [
-          {
-            id: 803,
-            main: 'Clouds',
-            description: 'broken clouds',
-            icon: '04d'
-          }
-        ],
-        speed: 1.6,
-        deg: 161,
-        clouds: 84
-      },
-      '9': {
-        dt: 1570561200,
-        sunrise: 1570543089,
-        sunset: 1570583768,
-        temp: {
-          day: 7.79,
-          min: -2.16,
-          max: 7.79,
-          night: -2.16,
-          eve: 3.35,
-          morn: 3.65
-        },
-        pressure: 1006.92,
-        humidity: 65,
-        weather: [
-          {
-            id: 601,
-            main: 'Snow',
-            description: 'snow',
-            icon: '13d'
-          }
-        ],
-        speed: 2.28,
-        deg: 172,
-        clouds: 71,
-        rain: 3.94,
-        snow: 2.81
-      },
-      '10': {
-        dt: 1570647600,
-        sunrise: 1570629574,
-        sunset: 1570670049,
-        temp: {
-          day: 4.45,
-          min: -4.08,
-          max: 8.15,
-          night: -1.38,
-          eve: 6.75,
-          morn: -4.08
-        },
-        pressure: 1020.65,
-        humidity: 57,
-        weather: [
-          {
-            id: 800,
-            main: 'Clear',
-            description: 'sky is clear',
-            icon: '01d'
-          }
-        ],
-        speed: 1.68,
-        deg: 35,
-        clouds: 0
-      },
-      '11': {
-        dt: 1570734000,
-        sunrise: 1570716059,
-        sunset: 1570756331,
-        temp: {
-          day: 5.75,
-          min: -3.85,
-          max: 9.23,
-          night: 0,
-          eve: 8.06,
-          morn: -3.85
-        },
-        pressure: 1028.09,
-        humidity: 54,
-        weather: [
-          {
-            id: 800,
-            main: 'Clear',
-            description: 'sky is clear',
-            icon: '01d'
-          }
-        ],
-        speed: 0.74,
+        dt: 1571122800,
+        sunrise: 1571148488,
+        sunset: 1571187753,
+        temp: { day: 6.17, min: 3.96, max: 11.51, night: 10.36, eve: 3.99, morn: 11.51 },
+        pressure: 1020,
+        humidity: 72,
+        weather: [{ id: 800, main: 'Clear', description: 'sky is clear', icon: '01n' }],
+        speed: 1.499,
         deg: 77,
         clouds: 0
       },
+      '8': {
+        dt: 1571209200,
+        sunrise: 1571234975,
+        sunset: 1571274040,
+        temp: { day: 9.94, min: 7.41, max: 13.26, night: 12.95, eve: 7.41, morn: 13.26 },
+        pressure: 1016,
+        humidity: 56,
+        weather: [{ id: 804, main: 'Clouds', description: 'overcast clouds', icon: '04n' }],
+        speed: 1.271,
+        deg: 136,
+        clouds: 100
+      },
+      '9': {
+        dt: 1571295600,
+        sunrise: 1571321462,
+        sunset: 1571360327,
+        temp: { day: 11.68, min: 8.71, max: 14.91, night: 8.71, eve: 9.68, morn: 14.91 },
+        pressure: 1002,
+        humidity: 50,
+        weather: [{ id: 500, main: 'Rain', description: 'light rain', icon: '10d' }],
+        speed: 0.799,
+        deg: 89,
+        clouds: 100,
+        rain: 1.5
+      },
+      '10': {
+        dt: 1571382000,
+        sunrise: 1571407950,
+        sunset: 1571446616,
+        temp: { day: 6.12, min: 5.25, max: 11.14, night: 7.79, eve: 6.05, morn: 11.14 },
+        pressure: 1002,
+        humidity: 70,
+        weather: [{ id: 500, main: 'Rain', description: 'light rain', icon: '10d' }],
+        speed: 3.418,
+        deg: 185,
+        clouds: 26,
+        rain: 2.81
+      },
+      '11': {
+        dt: 1571468400,
+        sunrise: 1571494438,
+        sunset: 1571532906,
+        temp: { day: 4.85, min: 3.01, max: 8.77, night: 6.1, eve: 4.15, morn: 8.77 },
+        pressure: 1006,
+        humidity: 71,
+        weather: [{ id: 804, main: 'Clouds', description: 'overcast clouds', icon: '04n' }],
+        speed: 1.632,
+        deg: 180,
+        clouds: 86
+      },
       '12': {
-        dt: 1570820400,
-        sunrise: 1570802544,
-        sunset: 1570842614,
-        temp: {
-          day: 6.26,
-          min: -2.4,
-          max: 9.57,
-          night: 5.18,
-          eve: 8.71,
-          morn: -2.4
-        },
-        pressure: 1021.08,
-        humidity: 52,
-        weather: [
-          {
-            id: 802,
-            main: 'Clouds',
-            description: 'scattered clouds',
-            icon: '03d'
-          }
-        ],
-        speed: 0.98,
-        deg: 85,
-        clouds: 37
+        dt: 1571554800,
+        sunrise: 1571580927,
+        sunset: 1571619196,
+        temp: { day: 6.24, min: 5.19, max: 8.67, night: 5.32, eve: 5.27, morn: 8.67 },
+        pressure: 1019,
+        humidity: 70,
+        weather: [{ id: 501, main: 'Rain', description: 'moderate rain', icon: '10d' }],
+        speed: 3.716,
+        deg: 192,
+        clouds: 100,
+        rain: 9.94
       },
       '13': {
-        dt: 1570906800,
-        sunrise: 1570889029,
-        sunset: 1570928897,
-        temp: {
-          day: 4.05,
-          min: 3.29,
-          max: 5.95,
-          night: 4.67,
-          eve: 5.95,
-          morn: 3.29
-        },
-        pressure: 1012.23,
-        humidity: 91,
-        weather: [
-          {
-            id: 501,
-            main: 'Rain',
-            description: 'moderate rain',
-            icon: '10d'
-          }
-        ],
-        speed: 0.87,
-        deg: 47,
-        clouds: 100,
-        rain: 6.88
+        dt: 1571641200,
+        sunrise: 1571667415,
+        sunset: 1571705488,
+        temp: { day: 12.68, min: 11.2, max: 14.27, night: 14.25, eve: 14.27, morn: 11.2 },
+        pressure: 1014,
+        humidity: 84,
+        weather: [{ id: 804, main: 'Clouds', description: 'overcast clouds', icon: '04n' }],
+        speed: 7.944,
+        deg: 222,
+        clouds: 100
       }
+    },
+    preferences: {
+      primaryScaleCurrent: 'f',
+      primaryScaleForecast: 'f',
+      location: { latitude: 47.62, longitude: -117.43, placename: 'Spokane, Washington' },
+      locations: [
+        { latitude: 42.35, longitude: -83.06, placename: 'Detroit, Michigan' },
+        { latitude: 33.43, longitude: -112.11, placename: 'Phoenix, Arizona' },
+        { latitude: 42.57, longitude: -84.42, placename: 'Mason, Michigan' },
+        { latitude: 47.62, longitude: -117.43, placename: 'Spokane, Washington' },
+        { latitude: 41.4081, longitude: -92.9164, placename: 'Pella, Iowa' },
+        { latitude: 43.6834, longitude: -80.433, placename: 'Elora, Ontario' },
+        { latitude: 43.5501, longitude: -80.2497, placename: 'Guelph, Ontario' },
+        { latitude: 37.6597, longitude: -97.5754, placename: 'Wichita, Kansas' },
+        { latitude: 52.1058, longitude: -101.2676, placename: 'Swan River, Manitoba' },
+        { latitude: 44.4001, longitude: -79.6664, placename: 'Barrie, Ontario' },
+        { latitude: 49.8844, longitude: -97.1471, placename: 'Winnipeg, Manitoba' },
+        { latitude: 41.6834, longitude: -86.2501, placename: 'South Bend, Indiana' },
+        { latitude: 40.0379, longitude: -76.3056, placename: 'Lancaster, Pennsylvania' }
+      ]
     }
   }
 }

@@ -38,6 +38,12 @@ const XForecast = class extends connect(store)(LitElement) {
     }
   }
 
+  getIcon(src) {
+    const icon = src[0].icon
+
+    return `${icon.slice(0, 2)}d`
+  }
+
   stateChanged({ weather }) {
     this.forecastweather = weather.forecast
     this.primaryscale = weather.preferences.primaryScaleForecast || this.primaryscale
@@ -56,13 +62,13 @@ const XForecast = class extends connect(store)(LitElement) {
 
         return forecast.weather && key < this.days
           ? html`
-              <x-weather-item iconalt="${forecast.weather[0].description}" iconsrc="${forecast.weather[0].icon}">
+              <x-weather-item iconalt="${forecast.weather[0].description}" iconsrc="${this.getIcon(forecast.weather)}">
                 <x-date-time datetimefmt="LLL dd (EEE)" slot="x-date-time" timestamp="${forecast.dt}"></x-date-time>
                 <x-weather-item-temperature
-                  dayscale="${this.primaryscale.toUpperCase()}"
-                  daytemp="${this.setTemp(forecast.temp.day, this.primaryscale)}"
-                  nightscale="${this.primaryscale.toUpperCase()}"
-                  nighttemp="${this.setTemp(forecast.temp.night, this.primaryscale)}"
+                  minscale="${this.primaryscale.toUpperCase()}"
+                  mintemp="${this.setTemp(forecast.temp.min, this.primaryscale)}"
+                  maxscale="${this.primaryscale.toUpperCase()}"
+                  maxtemp="${this.setTemp(forecast.temp.max, this.primaryscale)}"
                   slot="x-weather-item-temperature"
                 ></x-weather-item-temperature>
               </x-weather-item>

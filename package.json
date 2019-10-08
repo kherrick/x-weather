@@ -1,6 +1,6 @@
 {
   "name": "x-weather",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "A collection of web components implementing portions of the OpenWeatherMap API.",
   "author": "x-weather",
   "main": "dist/umd/module.js",
