@@ -46,7 +46,7 @@ const XForecast = class extends connect(store)(LitElement) {
 
   stateChanged({ weather }) {
     this.forecastweather = weather.forecast
-    this.primaryscale = weather.preferences.primaryScaleForecast || this.primaryscale
+    this.primaryscale = this.primaryscale || weather.preferences.primaryScaleCurrent
   }
 
   setTemp(temp, scale) {

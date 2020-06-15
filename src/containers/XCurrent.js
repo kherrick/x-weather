@@ -33,7 +33,7 @@ const XCurrent = class extends connect(store)(LitElement) {
 
   stateChanged({ weather }) {
     this.currentweather = weather.current
-    this.primaryscale = weather.preferences.primaryScaleCurrent || this.primaryscale
+    this.primaryscale = this.primaryscale || weather.preferences.primaryScaleCurrent
   }
 
   render() {
