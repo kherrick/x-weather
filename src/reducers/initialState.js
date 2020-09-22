@@ -186,9 +186,9 @@ export default {
       }
     },
     preferences: {
-      primaryScaleCurrent: 'f',
-      primaryScaleForecast: 'f',
-      location: { latitude: 47.62, longitude: -117.43, placename: 'Spokane, Washington' },
+      primaryScaleCurrent: 'c',
+      primaryScaleForecast: 'c',
+      location: { latitude: 49.2406, longitude: -98.5375, placename: 'Manitou, Manitoba' },
       locations: [
         { latitude: 42.35, longitude: -83.06, placename: 'Detroit, Michigan' },
         { latitude: 33.43, longitude: -112.11, placename: 'Phoenix, Arizona' },
@@ -196,6 +196,7 @@ export default {
         { latitude: 47.62, longitude: -117.43, placename: 'Spokane, Washington' },
         { latitude: 41.4081, longitude: -92.9164, placename: 'Pella, Iowa' },
         { latitude: 43.6834, longitude: -80.433, placename: 'Elora, Ontario' },
+        { latitude: 49.2406, longitude: -98.5375, placename: 'Manitou, Manitoba' },
         { latitude: 43.5501, longitude: -80.2497, placename: 'Guelph, Ontario' },
         { latitude: 37.6597, longitude: -97.5754, placename: 'Wichita, Kansas' },
         { latitude: 52.1058, longitude: -101.2676, placename: 'Swan River, Manitoba' },

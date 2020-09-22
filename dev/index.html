@@ -26,18 +26,16 @@
 
   <script type="module">
     import { html, render } from 'lit-html'
-
-    render(
       html`
         <x-weather
           appid="NOT_A_REAL_APP_ID"
           host="api.openweathermap.org"
-          latitude="47.62"
-          longitude="-117.43"
-          placename="Spokane, Washington"
+          latitude="49.2406"
+          longitude="-98.5375"
+          placename="Manitou, Manitoba"
         >
-          <x-current primaryscale="f"></x-current>
-          <x-forecast days="14" primaryscale="f"></x-forecast>
+          <x-current primaryscale="c"></x-current>
+          <x-forecast days="14" primaryscale="c"></x-forecast>
         </x-weather>
       `,
       document.querySelector('#app')
