@@ -21,14 +21,14 @@ const XForecast = class extends connect(store)(LitElement) {
       }
 
       x-date-time {
-        text-decoration: underline;
+        text-decoration: var(--x-forecast-x-date-time, initial);
       }
 
       x-weather-item {
         margin-bottom: 0.5rem;
       }
-    `
-  }
+      `
+    }
 
   static get properties() {
     return {
@@ -63,7 +63,7 @@ const XForecast = class extends connect(store)(LitElement) {
         return forecast.weather && key < this.days
           ? html`
               <x-weather-item iconalt="${forecast.weather[0].description}" iconsrc="${this.getIcon(forecast.weather)}">
-                <x-date-time datetimefmt="LLL dd (EEE)" slot="x-date-time" timestamp="${forecast.dt}"></x-date-time>
+                <x-date-time datefmt="LLL dd (EEE)" slot="x-date-time" timestamp="${forecast.dt}"></x-date-time>
                 <x-weather-item-temperature
                   minscale="${this.primaryscale.toUpperCase()}"
                   mintemp="${this.setTemp(forecast.temp.min, this.primaryscale)}"

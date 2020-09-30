@@ -9,7 +9,11 @@ const XCurrentTemperature = class extends connect(store)(LitElement) {
   static get styles() {
     return css`
       :host {
-        display: block;
+        align-items: var(--x-current-temperature-align-items, center);
+        display: var(--x-current-temperature-display, block);
+        flex-direction: var(--x-current-temperature-flex-direction, initial);
+        height: var(--x-current-temperature-height, initial);
+        justify-content: var(--x-current-temperature-justify-content, initial);
       }
 
       #alternateScale {
@@ -18,8 +22,8 @@ const XCurrentTemperature = class extends connect(store)(LitElement) {
       }
 
       #temperature {
-        font-size: 1.25rem;
-        font-weight: bold;
+        font-size: var(--x-current-temperature-font-size, initial);
+        font-weight: var(--x-current-temperature-font-weight, initial);
       }
     `
   }
@@ -56,12 +60,20 @@ const XCurrentTemperature = class extends connect(store)(LitElement) {
   render() {
     return this.primaryscale === 'c'
       ? html`
-          <span id="temperature">${this.celsius}</span> °<span id="primaryScale">C</span>
-          <span> / ${this.fahrenheit} °<a id="alternateScale" @click=${this._handleScaleSwap('f')}>F</a></span>
+          <div>
+            <span id="temperature">${this.celsius}</span> °<span id="primaryScale">C</span>
+          </div>
+          <div>
+            <span>${this.fahrenheit} °<a id="alternateScale" @click=${this._handleScaleSwap('f')}>F</a></span>
+          </div>
         `
       : html`
-          <span id="temperature">${this.fahrenheit}</span> °<span id="primaryScale">F</span>
-          <span> / ${this.celsius} °<a id="alternateScale" @click=${this._handleScaleSwap('c')}>C</a></span>
+          <div>
+            <span id="temperature">${this.fahrenheit}</span> °<span id="primaryScale">F</span>
+          </div>
+          <div>
+            <span>${this.celsius} °<a id="alternateScale" @click=${this._handleScaleSwap('c')}>C</a></span>
+          </div>
         `
   }
 }

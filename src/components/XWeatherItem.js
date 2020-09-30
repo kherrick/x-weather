@@ -4,7 +4,11 @@ const XWeatherItem = class extends LitElement {
   static get styles() {
     return css`
       :host {
-        display: block;
+        display: var(--x-weather-item-display, block);
+        flex-direction: var(--x-weather-item-flex-direction, initial);
+        text-align: var(--x-weather-item-text-align, initial);
+        justify-content: space-evenly;
+        align-items: center;
       }
 
       img {
@@ -12,15 +16,6 @@ const XWeatherItem = class extends LitElement {
         height: var(--x-weather-item-icon-height, 7.5rem);
         margin: var(--x-weather-item-icon-margin, auto);
         width: var(--x-weather-item-icon-width, 7.5rem);
-      }
-
-      ul {
-        list-style-type: none;
-        padding: 0;
-      }
-
-      ul > li {
-        text-align: center;
       }
     `
   }
@@ -38,17 +33,15 @@ const XWeatherItem = class extends LitElement {
     const iconurl = `https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/${this.iconsrc}.png`
 
     return html`
-      <ul>
-        <li>
-          <slot name="x-date-time"></slot>
-        </li>
-        <li>
-          <slot name="x-weather-item-temperature"></slot>
-        </li>
-        <li>
-          <img alt="${this.iconalt}" src="${iconurl}"></img>
-        </li>
-      </ul>
+      <div>
+        <slot name="x-date-time"></slot>
+      </div>
+      <div>
+        <slot name="x-weather-item-temperature"></slot>
+      </div>
+      <div>
+        <img alt="${this.iconalt}" src="${iconurl}" />
+      </div>
     `
   }
 }

@@ -2,3 +2,30 @@ body, html {
   margin: 0;
   padding: 0;
 }
+
+:root {
+  /* view 1 */
+  /*
+  --x-current-margin: 1rem;
+  --x-current-x-date-time: underline;
+  --x-forecast-x-date-time: underline;
+  --x-weather-item-text-align: center;
+  --x-current-x-weather-item-text-align: center;
+  */
+
+  /* view 2 */
+  --x-current-temperature-display: flex;
+  --x-current-temperature-flex-direction: column;
+  --x-current-temperature-height: 100%;
+
+  --x-current-x-current-temperature-font-size: 2.5rem;
+  --x-current-x-current-temperature-font-weight: bold;
+
+  --x-current-x-date-time-font-size: 1.75rem;
+
+  --x-current-x-weather-item-display: flex;
+  --x-current-x-weather-item-flex-direction: row;
+  --x-current-x-weather-item-text-align: center;
+
+  --x-weather-item-text-align: center;
+}

@@ -5,14 +5,19 @@ const XDateTime = class extends LitElement {
   static get styles() {
     return css`
       :host {
-        display: block;
+        display: var(--x-date-time-display, block);
+        flex-direction: var(--x-date-time-flex-direction, initial);
+        font-size: var(--x-date-time-font-size, initial);
+        font-weight: var(--x-date-time-font-weight, initial);
       }
     `
   }
 
   static get properties() {
     return {
-      datetimefmt: { type: String },
+      displayTime: { type: Boolean },
+      datefmt: { type: String },
+      timefmt: { type: String },
       timestamp: { type: String }
     }
   }
@@ -20,13 +25,29 @@ const XDateTime = class extends LitElement {
   constructor() {
     super()
 
-    this.datetimefmt = 'yyyy-MM-dd @ h:mm:ss a'
+    this.displayTime = false
+    this.datefmt = 'yyyy-MM-dd'
+    this.timefmt = 'h:mm:ss a'
     this.timestamp = '0'
   }
 
   render() {
+    const timestamp = new Date(fromUnixTime(this.timestamp))
+    const date = format(timestamp, this.datefmt)
+    const time = format(timestamp, this.timefmt)
+
     return html`
-      ${format(new Date(fromUnixTime(this.timestamp)), this.datetimefmt)}
+      <div>
+        ${date}
+      </div>
+      ${this.displayTime
+        ? html`
+          <div>
+            ${time}
+          </div>
+        `
+        : null
+      }
     `
   }
 }
