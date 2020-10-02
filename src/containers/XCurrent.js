@@ -7,6 +7,8 @@ import '../components/XDateTime'
 
 import './XCurrentTemperature'
 
+import { get } from '../utilities'
+
 const XCurrent = class extends connect(store)(LitElement) {
   static get styles() {
     return css`
@@ -45,7 +47,7 @@ const XCurrent = class extends connect(store)(LitElement) {
 
   stateChanged({ weather }) {
     this.currentweather = weather.current
-    this.primaryscale = this.primaryscale || weather.preferences.primaryScaleCurrent
+    this.primaryscale = get([ 'preferences','primaryScaleCurrent' ], weather) || this.primaryscale
   }
 
   render() {

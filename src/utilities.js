@@ -37,3 +37,6 @@ export const saveState = state => {
     // Ignore write errors...
   }
 }
+
+// get deeply nested properties, e.g. get(['p1','p2','p3'],obj),
+export const get = (path, obj) => path.reduce((xs, x) => (xs && xs.hasOwnProperty(x) ? xs[x] : null), obj)

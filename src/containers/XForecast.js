@@ -6,7 +6,7 @@ import '../components/XDateTime'
 import '../components/XWeatherItem'
 import '../components/XWeatherItemTemperature'
 
-import { convertTemperature } from '../utilities'
+import { convertTemperature, get } from '../utilities'
 
 const XForecast = class extends connect(store)(LitElement) {
   static get styles() {
@@ -46,7 +46,7 @@ const XForecast = class extends connect(store)(LitElement) {
 
   stateChanged({ weather }) {
     this.forecastweather = weather.forecast
-    this.primaryscale = this.primaryscale || weather.preferences.primaryScaleCurrent
+    this.primaryscale = get([ 'preferences','primaryScaleCurrent' ], weather) || this.primaryscale
   }
 
   setTemp(temp, scale) {
