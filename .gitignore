@@ -12,5 +12,5 @@
 /.tmp/
 
 ## built files
-/dist
-/service-worker.js
+#/dist
+#/service-worker.js

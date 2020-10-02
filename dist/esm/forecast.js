@@ -1,0 +1,1 @@
+import{FORECAST_WEATHER_UPDATE as r}from"./types.js";import{a as e}from"./_rollupPluginBabelHelpers-5bd7183e.js";import{createReducer as o}from"./utilities2.js";var t=o({},{[r](r,o){var{payload:t}=o;return e({},r,{},t)}});export default t;

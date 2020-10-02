@@ -1,0 +1,1 @@
+import{PRIMARY_SCALE_CURRENT_SWAP as p,PRIMARY_SCALE_FORECAST_SWAP as a,LOCATION_UPDATE as y}from"./types.js";var o=a=>({type:p,payload:a}),t=p=>({type:a,payload:p}),e=p=>({type:y,payload:p});export{o as swapPrimaryScaleCurrent,t as swapPrimaryScaleForecast,e as updateLocation};

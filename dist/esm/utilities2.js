@@ -1,0 +1,1 @@
+var t=(t,e)=>(function(){var r=arguments.length>0&&void 0!==arguments[0]?arguments[0]:t,n=arguments.length>1?arguments[1]:void 0;return!0===e.hasOwnProperty(n.type)?e[n.type](r,n):r});export{t as createReducer};
